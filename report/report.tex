@@ -1,0 +1,195 @@
+\documentclass[11pt,titlepage]{article}
+
+\usepackage[american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{color}
+\usepackage[tt]{titlepic}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{lastpage}
+
+% Custom Defines
+\usepackage[comma,numbers,sort&compress]{natbib}
+\bibliographystyle{plainnat}
+\usepackage[pdfstartview=FitH,
+            breaklinks=true,
+            bookmarksopen=true,
+            bookmarksnumbered=true,
+            colorlinks=true,
+            linkcolor=black,
+            citecolor=black
+            ]{hyperref}
+\newcommand{\rmd}{\textrm{d}}
+\newcommand{\bi}[1]{{\ensuremath{\boldsymbol{#1}}}}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+
+\topmargin=-0.45in
+\oddsidemargin=-0.1in
+\textwidth=6.8in
+\textheight=9.2in
+\headheight=30.9pt
+
+%======================= SET YOUR NAME HERE =======================================
+\def\MyName{Firstname Lastname}
+
+%======================= Titlepage (DO NOT MODIFY) ================================
+\titlepic{\includegraphics[width=5cm]{Figures/EPFL_LOGO.jpg}}
+\title{\textbf{Report}\\Course Project: Statistics of Turbulence and the Onset of Chaos}
+
+\author{~\\[3cm]~
+\begin{tabular}{rl}
+Name:&\MyName\\
+Date:&\today\\
+Course:&Turbulence ME-467\\
+Instructor:&Tobias Schneider
+\end{tabular}}
+\date{}
+%==================================================================================
+
+
+
+\begin{document}
+%========================  Header (DO NOT MODIFY) =================================
+\pagestyle{fancy} \pagenumbering{arabic} \setcounter{page}{1}
+\addtolength{\headheight}{\baselineskip}
+\lhead{\textbf{ME-467: Turbulence}\\\MyName}
+\chead{REPORT\\ \textit{Statistics of Turbulence and the Onset of Chaos}}
+\rhead{\includegraphics[width=55pt]{Figures/EPFL_LOGO.jpg}}
+\rfoot{\vspace{5pt}{\fontfamily{phv}\fontsize{5}{5}\selectfont ME-467 Project 2022, \MyName{}, \the\day.\the\month.\the\year, \thepage/\pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\maketitle
+%==================================================================================
+
+\section{Part I: Statistical Analysis of Turbulence}
+
+\subsection{Introduction \textcolor{blue}{(Limit: 1 page)}} % Remove limit text
+
+\subsection{Data Analysis}
+
+\subsubsection{Velocity Signal in the Spatial Domain}
+\begin{table} [h]
+\centering
+\caption{Table of results 1.}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c |}
+        \hline
+        Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
+        \hline
+        $d$ & $m$ & 1.0 & 2.0 & 3.0 & 4.0 & 5.0 & 6.0 \\
+        \hline
+        $U$ & & & & & & & \\
+        \hline
+        $I$ & & & & & & & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Correlation Length of the Velocity Signal}
+\begin{table}[h]
+\centering
+\caption{Table of results 2.}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c |}
+    \hline
+    Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
+    \hline
+    $L_C$ & & & & & & & \\
+    \hline
+    $L_\mathrm{int}$ & & & & & & & \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Energy Spectrum of the Flow}
+\begin{table}[h]
+\centering
+\caption{Table of results 3.}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c |}
+    \hline
+    Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
+    \hline
+    $L_{\mathrm{int},E}$ & & & & & & & \\
+    \hline
+    $\eta_E$ & & & & & & & \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{The Dissipation Rate and Different Reynolds Numbers}
+\begin{table}[h!]
+\centering
+\caption{Table of results 4.}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c |}
+        \hline
+        Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
+        \hline
+        $\epsilon$ & & & & & & & \\
+        \hline
+        $Re_\lambda$ & & & & & & & \\
+        \hline
+        $Re$ & & & & & & & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Turbulence Decay}
+\begin{table}[h!]
+\centering
+\caption{Table of results 5.}
+    \begin{tabular}{ | c | c | c | c | c | c | c | c |}
+        \hline
+        Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
+        \hline
+        $\mathcal{E}$ & & & & & & & \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Velocity Increments}
+
+\subsubsection{Structure Functions and Energy Dissipation}
+
+\subsection{Discussion \textcolor{blue}{(Limit: 1 page)}} % Remove limit text
+
+%==================================================================================
+
+\section{Part II: Nonlinear Dynamics and the Emergence of Chaos}
+
+Note: A template for this part will be provided later.
+
+
+
+
+
+\clearpage
+\appendix
+\section*{Appendix}
+\subsection*{List of Sources}
+
+\subsection*{List of Collaborators}
+
+%========================  Personal Statement (DO NOT MODIFY) =====================
+\subsection*{Personal Statement}
+I hereby certify that I fully respect the stated Honor Code and specifically that:
+\begin{enumerate}
+\item My report is my original work prepared solely by me;
+\item All sources used are cited;
+\item All people I collaborated with are listed.
+\end{enumerate}
+		
+\vspace{4em}
+\begin{tabular}{ll}
+\makebox[2.5in]{\hrulefill} & \makebox[2in]{\hrulefill}\\
+\small{Signature (\MyName)} & \small{Date}
+\end{tabular}
+%==================================================================================
+
+\end{document}
