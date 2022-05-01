@@ -185,6 +185,146 @@ def ex1_4(data):
     print ('REYNOLDS: ', Re)
     
     
+def ex1_5(data):
+    #POINT 1
+    # the 3/2 comes from the sum of the 3 spatial components
+    kinetic_energy = np.zeros([6])
+    for i in range(6):
+        kinetic_energy[i] = 3/2*np.var(data[str(i)])
+    print ('KINETIC ENERGY: ', kinetic_energy)
+    
+    
+    #POINT 2
+    y = kinetic_energy
+    d = range(1,7)
+    n_steps = 100
+    err = np.zeros([n_steps])
+    k = np.zeros([n_steps])
+    
+    for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
+        x = np.column_stack((np.ones([6]), np.log(d-d0)))
+        k = np.linalg.solve(x.T @ x, x.T @ np.log(y)) #least squares formula
+        err[i] = np.sum((np.log(y)-k[1]*np.log(d-d0)-k[0])**2) #computation of error
+            
+ 
+    d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)]
+    
+    x = np.column_stack((np.ones([6]), np.log(d-d0_opt)))
+    [logalpha_opt, b_opt] = np.linalg.solve(x.T @ x, x.T @ np.log(y))
+    
+    alpha_opt = np.exp(logalpha_opt)
+    h_opt = b_opt/(2+b_opt) 
+    
+    x = np.linspace(1,6,100)
+    plt.figure()
+    plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(x,np.power(x-d0_opt,b_opt), label='(d-d0)^b')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b_opt), label='k1(d-d0)^b')
+    plt.legend()
+    plt.xlabel('Distance d')
+    plt.ylabel('Kinetic energy')
+    print("d0 = ", d0_opt, ", h = ", h_opt)
+    
+    
+    # POINT 3
+    
+    plt.figure()
+    
+    for d0 in np.arange(0,1,0.1):
+        plt.loglog(d-d0, kinetic_energy, label='d0 = '+'{:.1f}'.format(d0))
+      
+    q = -1.2
+    x = np.arange(0.1,1,0.1)
+    plt.loglog(x, 0.1*x**q, 'k--', label='k*d0^'+str(q))
+    plt.xlabel('Distance d')
+    plt.ylabel('Kinetic energy')
+    plt.legend()
+    
+    print ('h from graphic method = '+'{:.1f}'.format( q/(q+2)))
+    
+    # POINT 4
+    
+    Lc = [0.36985652, 0.63973856, 0.77961905, 0.90965516, 1.00961929, 1.08953831] # from ex1_2, point 1
+    plt.figure()
+    plt.loglog(Lc, kinetic_energy, label='Experimental')
+    plt.loglog(Lc, np.power(Lc,-3), label='Saffman\'s decay')
+    plt.loglog(Lc, np.power(Lc,-5), label='Loitsyanskii\'s decay')
+    plt.loglog(Lc, np.power(Lc,-2), label='Self similar decay')
+    plt.xlabel('Lc')
+    plt.ylabel('Kinetic energy')
+    plt.legend()
+    # Saffman's decay is the most accurate => h = -3/2 that is the same as in point 3 => same d0
+    
+    
+    # POINT 6 - non torna perché -(1+2h)>0 ma E(k) dovrebbe diminuire
+    """
+    print ("ENERGY SPECTRUM:")
+    plt.figure()
+    
+    max_idx = int(1e6)
+    N = data.shape[0]
+    vm = np.mean(data['0'])
+    L = N*vm/f
+    E = np.zeros([N,6])
+    dx = L/(N-1)
+    dk = 2*np.pi/(N*dx)
+    k = range(N)*dk
+    
+    for n in tqdm(range(6)):
+        
+        vm = np.mean(data[str(n)])
+        u = data[str(n)] - vm
+        u = np.nan_to_num(u)
+        
+        Ek1 = dx/np.sqrt(2*np.pi)*np.fft.fft(u)
+        Ek2 = dx/np.sqrt(2*np.pi)*np.fft.ifft(u)
+        Ek1 = 0.5*np.absolute(Ek1/np.sqrt(L))**2
+        Ek2 = 0.5*np.absolute(Ek2/np.sqrt(L))**2
+        
+        E[:,n] = Ek1 + Ek2
+        
+        plt.loglog(k[:max_idx], savgol_filter(E[:max_idx,n], 301, 5), label='Anemometer '+str(n+1))
+    
+    plt.loglog(k[100:max_idx], np.power(k[100:max_idx],-(1+2*h_opt))*1e-4, label='$k^{-(1+2h)}$')
+    plt.legend()
+    plt.xlabel("k")
+    plt.ylabel("Energy Spectrum")
+    """
+    
+    # POINT 7
+    # Relation (10) with L0
+    L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
+    y = L0
+    d = range(1,7)
+    n_steps = 100
+    err = np.zeros([n_steps])
+    k = np.zeros([n_steps])
+    
+    for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
+        x = np.column_stack((np.ones([6]), np.log(d-d0)))
+        k = np.linalg.solve(x.T @ x, x.T @ np.log(y)) #least squares formula
+        err[i] = np.sum((np.log(y)-k[1]*np.log(d-d0)-k[0])**2) #computation of error
+    d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)] 
+    # d0 is 0.207
+    
+    # Relation (12) with Re
+    Re = [3672952.55752014, 6296359.54652325, 8814198.72317052, 10494242.76662383, 12963502.48543675, 13773078.89665386] # from ex1_4, point 3
+    y = Re
+    d = range(1,7)
+    n_steps = 100
+    err = np.zeros([n_steps])
+    k = np.zeros([n_steps])
+    for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
+        x = np.column_stack((np.ones([6]), np.log(d-d0)))
+        k = np.linalg.solve(x.T @ x, x.T @ np.log(y)) #least squares formula
+        err[i] = np.sum((np.log(y)-k[1]*np.log(d-d0)-k[0])**2) #computation of error
+    d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)] 
+    # d0 is 0.207
+    
+    # the two d0 are clearly different from the result in point 2, so d0 is in general different
+    # however, the two d0 are here exactly the same because Re depends on L0
+    
+    
     
 def main():
     define_variables()
@@ -192,7 +332,8 @@ def main():
     #ex1_1(data)
     #ex1_2(data)
     #ex1_3(data)
-    ex1_4(data)
+    #ex1_4(data)
+    ex1_5(data)
     
     del data
     gc.collect()
