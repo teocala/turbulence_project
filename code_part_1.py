@@ -40,8 +40,8 @@ def ex1_1(data):
     fig, axs = plt.subplots(2, 3)
     for i in range(6):
         vm = np.mean(data[str(i)])
-        max_distance = 4
-        max_index = max_distance*int(f/vm)
+        max_distance = 4 # i.e. a range of 4 meters
+        max_index = int(max_distance*f/vm)
         x = i+1 - vm*range(max_index)/f # taylor hypothesis
         axs[i//3,i%3].plot(x,data[str(i)][:max_index])
         axs[i//3,i%3].set_title('Anenometer '+ str(i+1))
@@ -332,17 +332,112 @@ def ex1_5(data):
     
     # the two d0 are clearly different from the result in point 2, so d0 is in general different
     # however, the two d0 are here exactly the same because Re depends on L0
+
+
+
+def ex1_6(data):
+    # POINT 1
+    dist = [0.001, 0.01, 0.1, 10]
+    fig, axs = plt.subplots(2, 2)
+    
+    for i,l in enumerate(dist):
+        vm = np.mean(data[str(0)])
+        max_distance = 4
+        max_index = int(max_distance*f/vm)
+        dt = int(l*f/vm)
+        x = 1 - vm*range(max_index)/f # taylor hypothesis
+        y = np.array(data[str(0)][dt:dt+max_index]) - np.array(data[str(0)][:max_index])
+        axs[i//2,i%2].plot(x,y)
+        axs[i//2,i%2].set_title('l = '+str(l))
+        axs[i//2,i%2].set_xlabel('Distance (m)', fontsize=9)
+        axs[i//2,i%2].set_ylabel('$\delta_u$ (m/s)', fontsize=9)
+    
+    fig.tight_layout(pad=1.5)
+    
+    
+    # POINT 4
+    plt.figure()
+    for i,l in enumerate(dist):
+        N = data[str(0)].shape[0]
+        vm = np.mean(data[str(0)])
+        dt = int(l*f/vm)
+        y = np.array(data[str(0)][dt:]) - np.array(data[str(0)][:-dt])
+        num = np.mean(np.power(y,4))
+        den = np.mean(np.power(y,2))**2
+        plt.plot(l,num/den, 'x', label = 'l = '+str(l))
+    
+    plt.plot([0,10],[3,3], label='Gaussian flatness')
+    plt.legend()
+    
+    
+
+def ex1_7(data):
+    # POINT 1, 2, 3
+    n_ref = 40
+    dist = np.logspace(-3,0,n_ref) #for the four-fifth law, we need small l
+    N = data[str(0)].shape[0]
+    vm = np.mean(data[str(0)])
+    
+    S2 = np.zeros([n_ref])
+    S3 = np.zeros([n_ref])
+    
+    print ("S2 and S3: ")
+    for i in tqdm(range(n_ref)):
+        dt = int(dist[i]*f/vm)
+        y = np.array(data[str(0)][:-dt]) - np.array(data[str(0)][dt:])
+        S2[i] = np.mean(np.power(y,2))
+        S3[i] = np.mean(np.power(y,3))
+    
+    plt.figure()
+    plt.loglog(dist, S2, label='S2')
+    plt.loglog(dist, np.power(dist,2/3), label ='$x^{2/3}$')
+    plt.title('S2')
+    plt.xlabel('l (m)')
+    plt.ylabel('S2 ($m^2/s^2$)')
+    plt.legend()
+    # A clear scaling is for l in [10^-2, 0.5] 
+    
+    plt.figure()
+    plt.loglog(dist, -S3, label = '-S3')
+    plt.loglog(dist, dist, label ='$y=x$')
+    plt.title('S3')
+    plt.xlabel('l (m)')
+    plt.ylabel('S3 ($m^3/s^3$)')
+    plt.legend()
+    # A clear scaling is for l in [10^-2, 0.2] 
+    
+    
+    # POINT 4
+    l = 0.07 # I take a value in the middle of the above ranges
+    N = data[str(0)].shape[0]
+    vm = np.mean(data[str(0)])
+
+    dt = int(l*f/vm)
+    y = np.array(data[str(0)][:-dt]) - np.array(data[str(0)][dt:])
+    S2 = np.mean(np.power(y,2))
+    S3 = np.mean(np.power(y,3))
+    
+    e2 = S2**(3/2)/(2.2**(3/2)*l)
+    e3 = -(5/4)*S3/l
+    
+    Lc = 0.36985652 # from ex1_2, point 1
+    epsilon = 0.5*np.power(np.var(data[str(0)]), 3/2)/Lc
+    print ("Original rate: ", epsilon)
+    print ("Rate from S2: ", e2)
+    print ("Rate from S3: ", e3)
     
     
     
 def main():
     define_variables()
     data = get_data()
-    ex1_1(data)
+    #ex1_1(data)
     #ex1_2(data)
     #ex1_3(data)
     #ex1_4(data)
     #ex1_5(data)
+    #ex1_6(data)
+    ex1_7(data)
     
     del data
     gc.collect()
