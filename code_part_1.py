@@ -36,18 +36,21 @@ def get_data():
         
 def ex1_1(data):
     
-    N = 1000000
-    
     # POINT 1
-    plt.figure()
+    fig, axs = plt.subplots(2, 3)
     for i in range(6):
         vm = np.mean(data[str(i)])
-        max_index = int(f/vm)
-        x = i - vm*range(max_index)/f # taylor hypothesis
-        plt.plot(x,data[str(i)][N:max_index+N], label='Anemometer '+str(i+1))
-    plt.xlabel('Distance (m)')
-    plt.ylabel('Downstream velocity (m/s)')
-    plt.legend()
+        max_distance = 4
+        max_index = max_distance*int(f/vm)
+        x = i+1 - vm*range(max_index)/f # taylor hypothesis
+        axs[i//3,i%3].plot(x,data[str(i)][:max_index])
+        axs[i//3,i%3].set_title('Anenometer '+ str(i+1))
+        axs[i//3,i%3].set_ylim([7,15])
+        axs[i//3,i%3].set_xlabel('Distance (m)', fontsize=7)
+        axs[i//3,i%3].set_ylabel('Velocity (m/s)', fontsize=7)
+    
+    fig.tight_layout(pad=1.5)
+        
     
     # POINT 2
     U = np.zeros([6])
@@ -335,9 +338,9 @@ def ex1_5(data):
 def main():
     define_variables()
     data = get_data()
-    #ex1_1(data)
+    ex1_1(data)
     #ex1_2(data)
-    ex1_3(data)
+    #ex1_3(data)
     #ex1_4(data)
     #ex1_5(data)
     
