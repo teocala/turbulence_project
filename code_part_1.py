@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import gc
+import scipy
 from scipy.signal import savgol_filter
 
 
@@ -124,16 +125,20 @@ def ex1_3(data):
         u = data[str(n)] - vm
         u = np.nan_to_num(u)
         
-        Ek1 = dx/np.sqrt(2*np.pi)*np.fft.fft(u)
-        Ek2 = dx/np.sqrt(2*np.pi)*np.fft.ifft(u)
+        Ek1 = dx/np.sqrt(2*np.pi)*scipy.fft.fft(u)
+        Ek2 = dx/np.sqrt(2*np.pi)*scipy.fft.ifft(u)
         Ek1 = 0.5*np.absolute(Ek1/np.sqrt(L))**2
         Ek2 = 0.5*np.absolute(Ek2/np.sqrt(L))**2
         
         E[:,n] = Ek1 + Ek2
         
-        plt.loglog(k[:max_idx], savgol_filter(E[:max_idx,n], 301, 5), label='Anemometer '+str(n+1))
+        p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
+        x = np.logspace(-2,3,10000,base=10)
+        y = savgol_filter(p(x),301,1)
+        plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
+        
     
-    plt.loglog(k[100:max_idx], np.power(k[100:max_idx],-5/3)*1e-4, label='$k^{-5/3}$')
+    plt.loglog(x[3000:7000], np.power(x[3000:7000],-5/3)*1e-4, label='$k^{-5/3}$')
     plt.legend()
     plt.xlabel("k")
     plt.ylabel("Energy Spectrum")
@@ -247,9 +252,9 @@ def ex1_5(data):
     Lc = [0.36985652, 0.63973856, 0.77961905, 0.90965516, 1.00961929, 1.08953831] # from ex1_2, point 1
     plt.figure()
     plt.loglog(Lc, kinetic_energy, label='Experimental')
-    plt.loglog(Lc, np.power(Lc,-3), label='Saffman\'s decay')
-    plt.loglog(Lc, np.power(Lc,-5), label='Loitsyanskii\'s decay')
-    plt.loglog(Lc, np.power(Lc,-2), label='Self similar decay')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-3)/np.power(Lc[0],-3), label='Saffman\'s decay')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-5)/np.power(Lc[0],-5), label='Loitsyanskii\'s decay')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-2)/np.power(Lc[0],-2), label='Self similar decay')
     plt.xlabel('Lc')
     plt.ylabel('Kinetic energy')
     plt.legend()
@@ -257,7 +262,6 @@ def ex1_5(data):
     
     
     # POINT 6 - non torna perché -(1+2h)>0 ma E(k) dovrebbe diminuire
-    """
     print ("ENERGY SPECTRUM:")
     plt.figure()
     
@@ -276,20 +280,22 @@ def ex1_5(data):
         u = data[str(n)] - vm
         u = np.nan_to_num(u)
         
-        Ek1 = dx/np.sqrt(2*np.pi)*np.fft.fft(u)
-        Ek2 = dx/np.sqrt(2*np.pi)*np.fft.ifft(u)
+        Ek1 = dx/np.sqrt(2*np.pi)*scipy.fft.fft(u)
+        Ek2 = dx/np.sqrt(2*np.pi)*scipy.fft.ifft(u)
         Ek1 = 0.5*np.absolute(Ek1/np.sqrt(L))**2
         Ek2 = 0.5*np.absolute(Ek2/np.sqrt(L))**2
         
         E[:,n] = Ek1 + Ek2
         
-        plt.loglog(k[:max_idx], savgol_filter(E[:max_idx,n], 301, 5), label='Anemometer '+str(n+1))
-    
-    plt.loglog(k[100:max_idx], np.power(k[100:max_idx],-(1+2*h_opt))*1e-4, label='$k^{-(1+2h)}$')
+        p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
+        x = np.logspace(-2,3,10000,base=10)
+        y = savgol_filter(p(x),301,1)
+        plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
+        
+    plt.loglog(x[:5000], np.power(x[:5000],-(1+2*h_opt))*5, label='$k^{-(1+2h)}$')
     plt.legend()
     plt.xlabel("k")
     plt.ylabel("Energy Spectrum")
-    """
     
     # POINT 7
     # Relation (10) with L0
@@ -331,9 +337,9 @@ def main():
     data = get_data()
     #ex1_1(data)
     #ex1_2(data)
-    #ex1_3(data)
+    ex1_3(data)
     #ex1_4(data)
-    ex1_5(data)
+    #ex1_5(data)
     
     del data
     gc.collect()
