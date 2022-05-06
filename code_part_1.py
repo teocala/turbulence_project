@@ -12,6 +12,7 @@ from tqdm import tqdm
 import gc
 import scipy
 from scipy.signal import savgol_filter
+import scipy.signal
 
 
 def define_variables():
@@ -71,39 +72,31 @@ def ex1_1(data):
 
 def ex1_2(data):
     
-    # POINT 1
-    dx = 0.05
-    global Lc
-    Lc = np.zeros([6])
-    print ('CORRELATION LENGTH:')
-    for i in tqdm(range(6)):
-        l = 0
-        C = 1
-        vm = np.mean(data[str(i)])
-        u = np.array(data[str(i)]-vm)
-        u = np.nan_to_num(u)
-        while (C > 1/np.e):
-            l = l + dx
-            Dt = int(l*f/vm) # shift in space -> shift in time-series measurement
-            C = np.mean(u[Dt:]*u[:-Dt]) / np.mean(u*u)
-        Lc[i] = Dt*vm/f
-    print (Lc)
+    # POINT 1,2
     
-    # POINT 3
+    Lc = np.zeros([6])
     Lint = np.zeros([6])
-    print ('INTEGRAL SCALE:')
+    
+    print ('EX1_2')
     for i in tqdm(range(6)):
-        l = 0
-        C = 1
+        
         vm = np.mean(data[str(i)])
         u = np.array(data[str(i)]-vm)
         u = np.nan_to_num(u)
-        while (l < 5*Lc[i]): # it approximates the integral to infinite
-            l = l + dx
-            Dt = int(l*f/vm)
-            C = np.mean(u[Dt:]*u[:-Dt]) / np.mean(u*u)
-            Lint[i] = Lint[i] + C*dx # rectangular quadrature for integral
-    print (Lint)
+        N = u.shape[0]
+        C = scipy.signal.correlate(u,u,'same','fft')
+        C = C[N//2:]
+        C = C / range(N,N-C.shape[0],-1)
+        C = C / np.mean(u*u)
+        
+        dt = np.where(C < 1/np.e)[0][0]
+        Lc[i] = dt*vm/f
+        
+        dx = vm/f
+        Lint[i] = C[:5*dt].sum()*dx
+        
+    print ('\nCORRELATION LENGTH:', Lc)
+    print ('INTEGRAL SCALE: ', Lint)
     
     
     
@@ -143,8 +136,8 @@ def ex1_3(data):
     
     plt.loglog(x[3000:7000], np.power(x[3000:7000],-5/3)*1e-4, label='$k^{-5/3}$')
     plt.legend()
-    plt.xlabel("k")
-    plt.ylabel("Energy Spectrum")
+    plt.xlabel("k (1/s)")
+    plt.ylabel("Energy Spectrum ($m^2/s^2$")
     
     # POINT 2
     for n in range(6):
@@ -169,7 +162,7 @@ def ex1_3(data):
  
 def ex1_4(data):
     
-    Lc = [0.36985652, 0.63973856, 0.77961905, 0.90965516, 1.00961929, 1.08953831] # from ex1_2, point 1
+    Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
     L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
     
     # POINT 1
@@ -189,7 +182,13 @@ def ex1_4(data):
     Re = np.zeros([6])
     for i in range(6):
         vm = np.mean(data[str(i)])
-        Re[i] = vm*L0[i]/viscosity
+        l = L0[i]
+        dt = int(l*f/vm)
+        v = np.array(data[str(i)])
+        v = np.nan_to_num(v)
+        y = v[dt:] - v[:-dt]
+        v0 = np.mean(np.power(y,2))
+        Re[i] = v0*L0[i]/viscosity
     print ('REYNOLDS: ', Re)
     
     
@@ -226,11 +225,12 @@ def ex1_5(data):
     x = np.linspace(1,6,100)
     plt.figure()
     plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(x, alpha_opt*np.power(x,b_opt), label='k1(d)^b')
     plt.plot(x,np.power(x-d0_opt,b_opt), label='(d-d0)^b')
     plt.plot(x,alpha_opt*np.power(x-d0_opt,b_opt), label='k1(d-d0)^b')
     plt.legend()
-    plt.xlabel('Distance d')
-    plt.ylabel('Kinetic energy')
+    plt.xlabel('Distance d (m)')
+    plt.ylabel('Kinetic energy ($m^2/s^2$)')
     print("d0 = ", d0_opt, ", h = ", h_opt)
     
     
@@ -244,27 +244,27 @@ def ex1_5(data):
     q = -1.2
     x = np.arange(0.1,1,0.1)
     plt.loglog(x, 0.1*x**q, 'k--', label='k*d0^'+str(q))
-    plt.xlabel('Distance d')
-    plt.ylabel('Kinetic energy')
+    plt.xlabel('Distance d (m)')
+    plt.ylabel('Kinetic energy ($m^2/s^2$)')
     plt.legend()
     
     print ('h from graphic method = '+'{:.1f}'.format( q/(q+2)))
     
     # POINT 4
     
-    Lc = [0.36985652, 0.63973856, 0.77961905, 0.90965516, 1.00961929, 1.08953831] # from ex1_2, point 1
+    Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
     plt.figure()
     plt.loglog(Lc, kinetic_energy, label='Experimental')
     plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-3)/np.power(Lc[0],-3), label='Saffman\'s decay')
     plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-5)/np.power(Lc[0],-5), label='Loitsyanskii\'s decay')
     plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-2)/np.power(Lc[0],-2), label='Self similar decay')
-    plt.xlabel('Lc')
-    plt.ylabel('Kinetic energy')
+    plt.xlabel('Lc (m)')
+    plt.ylabel('Kinetic energy ($m^2/s^2$)')
     plt.legend()
     # Saffman's decay is the most accurate => h = -3/2 that is the same as in point 3 => same d0
     
-    
-    # POINT 6 - non torna perché -(1+2h)>0 ma E(k) dovrebbe diminuire
+    """
+    # POINT 6
     print ("ENERGY SPECTRUM:")
     plt.figure()
     
@@ -297,9 +297,9 @@ def ex1_5(data):
         
     plt.loglog(x[:5000], np.power(x[:5000],-(1+2*h_opt))*5, label='$k^{-(1+2h)}$')
     plt.legend()
-    plt.xlabel("k")
-    plt.ylabel("Energy Spectrum")
-    
+    plt.xlabel("k (1/s)")
+    plt.ylabel("Energy Spectrum ($m^2/s^2$)")
+    """
     # POINT 7
     # Relation (10) with L0
     L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
@@ -308,27 +308,56 @@ def ex1_5(data):
     n_steps = 100
     err = np.zeros([n_steps])
     k = np.zeros([n_steps])
+    b = 1/(1-h_opt)
     
     for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
-        x = np.column_stack((np.ones([6]), np.log(d-d0)))
-        k = np.linalg.solve(x.T @ x, x.T @ np.log(y)) #least squares formula
-        err[i] = np.sum((np.log(y)-k[1]*np.log(d-d0)-k[0])**2) #computation of error
+        x = np.column_stack((np.ones([6]))).T
+        ym = np.log(y)-b*np.log(d-d0)
+        k = np.linalg.solve(x.T @ x, x.T @ ym) #least squares formula
+        err[i] = np.sum((np.log(y)-b*np.log(d-d0)-k)**2) #computation of error
     d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)] 
-    # d0 is 0.207
+    x = np.column_stack((np.ones([6]))).T
+    ym = np.log(y)-b*np.log(d-d0_opt)
+    logalpha_opt = np.linalg.solve(x.T @ x, x.T @ ym)
+    alpha_opt = np.exp(logalpha_opt)
+    
+    print ("From L0: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
+    x = np.linspace(1,6,100)
+    plt.figure()
+    plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
+    plt.legend()
+    plt.xlabel('Distance d (m)')
+    plt.ylabel('Kinetic energy ($m^2/s^2$)')
     
     # Relation (12) with Re
-    Re = [3672952.55752014, 6296359.54652325, 8814198.72317052, 10494242.76662383, 12963502.48543675, 13773078.89665386] # from ex1_4, point 3
+    Re = [1196585.37353651,  419121.43956366,  298222.5626895, 232811.63475919, 207761.80650573,  173547.40532675]
     y = Re
     d = range(1,7)
     n_steps = 100
     err = np.zeros([n_steps])
     k = np.zeros([n_steps])
+    b = (1+h_opt)/(1-h_opt)
+    
     for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
-        x = np.column_stack((np.ones([6]), np.log(d-d0)))
-        k = np.linalg.solve(x.T @ x, x.T @ np.log(y)) #least squares formula
-        err[i] = np.sum((np.log(y)-k[1]*np.log(d-d0)-k[0])**2) #computation of error
+        x = np.column_stack((np.ones([6]))).T
+        ym = np.log(y)-b*np.log(d-d0)
+        k = np.linalg.solve(x.T @ x, x.T @ ym) #least squares formula
+        err[i] = np.sum((np.log(y)-b*np.log(d-d0)-k)**2) #computation of error
     d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)] 
-    # d0 is 0.207
+    x = np.column_stack((np.ones([6]))).T
+    ym = np.log(y)-b*np.log(d-d0_opt)
+    logalpha_opt = np.linalg.solve(x.T @ x, x.T @ ym)
+    alpha_opt = np.exp(logalpha_opt)
+    
+    print ("From Re: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
+    x = np.linspace(1,6,100)
+    plt.figure()
+    plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
+    plt.legend()
+    plt.xlabel('Distance d (m)')
+    plt.ylabel('Kinetic energy ($m^2/s^2$)')
     
     # the two d0 are clearly different from the result in point 2, so d0 is in general different
     # however, the two d0 are here exactly the same because Re depends on L0
@@ -420,7 +449,7 @@ def ex1_7(data):
     e2 = S2**(3/2)/(2.2**(3/2)*l)
     e3 = -(5/4)*S3/l
     
-    Lc = 0.36985652 # from ex1_2, point 1
+    Lc = 0.36669985 # from ex1_2, point 1
     epsilon = 0.5*np.power(np.var(data[str(0)]), 3/2)/Lc
     print ("Original rate: ", epsilon)
     print ("Rate from S2: ", e2)
@@ -434,10 +463,10 @@ def main():
     #ex1_1(data)
     #ex1_2(data)
     #ex1_3(data)
-    #ex1_4(data)
+    ex1_4(data)
     #ex1_5(data)
     #ex1_6(data)
-    ex1_7(data)
+    #ex1_7(data)
     
     del data
     gc.collect()
