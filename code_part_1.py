@@ -187,8 +187,8 @@ def ex1_4(data):
         v = np.array(data[str(i)])
         v = np.nan_to_num(v)
         y = v[dt:] - v[:-dt]
-        v0 = np.mean(np.power(y,2))
-        Re[i] = v0*L0[i]/viscosity
+        v0 = np.sqrt(np.mean(np.power(y,2)))
+        Re[i] = v0*l/viscosity
     print ('REYNOLDS: ', Re)
     
     
@@ -324,14 +324,15 @@ def ex1_5(data):
     print ("From L0: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
     x = np.linspace(1,6,100)
     plt.figure()
-    plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(d,y,'b*', label='L0 values')
     plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
     plt.legend()
     plt.xlabel('Distance d (m)')
-    plt.ylabel('Kinetic energy ($m^2/s^2$)')
+    plt.ylabel('L0 (m)')
     
     # Relation (12) with Re
-    Re = [1196585.37353651,  419121.43956366,  298222.5626895, 232811.63475919, 207761.80650573,  173547.40532675]
+    Re = [646287.15855169, 500801.04127716, 499838.32346323, 481861.24611346,
+     505926.82006497, 476626.71192208] # ex1_4, point 3
     y = Re
     d = range(1,7)
     n_steps = 100
@@ -353,11 +354,11 @@ def ex1_5(data):
     print ("From Re: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
     x = np.linspace(1,6,100)
     plt.figure()
-    plt.plot(d,y,'b*', label='Kinetic energy values')
+    plt.plot(d,y,'b*', label='Re values')
     plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
     plt.legend()
     plt.xlabel('Distance d (m)')
-    plt.ylabel('Kinetic energy ($m^2/s^2$)')
+    plt.ylabel('Reynolds number (adim.)')
     
     # the two d0 are clearly different from the result in point 2, so d0 is in general different
     # however, the two d0 are here exactly the same because Re depends on L0
@@ -463,8 +464,8 @@ def main():
     #ex1_1(data)
     #ex1_2(data)
     #ex1_3(data)
-    ex1_4(data)
-    #ex1_5(data)
+    #ex1_4(data)
+    ex1_5(data)
     #ex1_6(data)
     #ex1_7(data)
     
