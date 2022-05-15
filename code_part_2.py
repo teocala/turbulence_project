@@ -37,22 +37,145 @@ def generate_map(x0,y0,n_iter,alpha1,alpha2,beta):
 
 def ex3_1():
     
+    # POINT 1
     alpha1 = 0.3
-    alpha2 = 0.4 # alpha1+alpha2<=1
-    beta = 0.6 # != 0.5 in the general case
-    n_iter = 1000
-    x0 = np.random.uniform()
-    y0 = np.random.uniform()
+    alpha2 = 0.2 # alpha1+alpha2<=1
+    beta = 0.4 # != 0.5 in the general case
+    n_sample = 1000
     
-    [x,y] = generate_map(x0,y0,n_iter,alpha1,alpha2,beta)
+    fig, axs = plt.subplots(2, 3)
+    for i in range(6):
+        axs[i//3,i%3].set_xlabel("x")
+        axs[i//3,i%3].set_ylabel("y")
+        axs[i//3,i%3].set_title("Time-step "+str(i))
+    for n in range(n_sample):
+        x0 = np.random.uniform()
+        y0 = np.random.uniform()
+        [x,y] = generate_map(x0,y0,5,alpha1,alpha2,beta)
+        if y0 < beta:
+            for i in range(6):
+                axs[i//3,i%3].plot(x[i],y[i], 'b.', markersize=0.8)
+        else:
+            for i in range(6):
+                axs[i//3,i%3].plot(x[i],y[i], 'r.', markersize=0.8)
+            
+        
+    fig.tight_layout(pad=1.5)
+    
+    
+    
+    # POINT 2
+    alpha1 = 0.4
+    alpha2 = 0.3 # alpha1+alpha2<=1
+    beta = 0.4 # != 0.5 in the general case
+    n_sample = 1000
     
     plt.figure()
-    plt.plot(x,y, linewidth = 0.1, label='Time evolution')
-    plt.plot(x[0],y[0], 'x', label='Start point')
+    for n in range(n_sample):
+        x0 = np.random.uniform()
+        y0 = np.random.uniform()
+        [x,y] = generate_map(x0,y0,1,alpha1,alpha2,beta)
+        plt.plot(x[-1],y[-1], 'b.', markersize=0.8)
+        
+    plt.plot([0, 0], [0,1], 'k')   
+    plt.plot([alpha1, alpha1], [0,1],'k')
+    plt.plot([1-alpha2, 1-alpha2], [0,1],'k')
+    plt.plot([1, 1], [0,1], 'k') 
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title("1 timestep distribution") 
+    
+    
+    
+    plt.figure()
+    for n in range(n_sample):
+        x0 = np.random.uniform()
+        y0 = np.random.uniform()
+        [x,y] = generate_map(x0,y0,2,alpha1,alpha2,beta)
+        plt.plot(x[-1],y[-1], 'b.', markersize=0.8)
+        
+    plt.plot([0, 0], [0,1], 'k')   
+    plt.plot([alpha1**2, alpha1**2], [0,1], 'k')  
+    plt.plot([(1-alpha2)*alpha1, (1-alpha2)*alpha1], [0,1],'k')
+    plt.plot([alpha1, alpha1], [0,1],'k')
+    plt.plot([1-alpha2, 1-alpha2], [0,1],'k')
+    plt.plot([(1-alpha2) + alpha1*alpha2, (1-alpha2) + alpha1*alpha2], [0,1], 'k')  
+    plt.plot([(1-alpha2) + (1-alpha2)*alpha2, (1-alpha2) + (1-alpha2)*alpha2], [0,1],'k')
+    plt.plot([1, 1], [0,1], 'k') 
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title("2 timesteps distribution") 
+    
+    
+    
+    plt.figure()
+    for n in range(n_sample):
+        x0 = np.random.uniform()
+        y0 = np.random.uniform()
+        [x,y] = generate_map(x0,y0,3,alpha1,alpha2,beta)
+        plt.plot(x[-1],y[-1], 'b.', markersize=0.8)
+        
+    plt.plot([0, 0], [0,1], 'k')   
+    plt.plot([alpha1**3, alpha1**3], [0,1], 'k')  
+    plt.plot([(1-alpha2)*alpha1**2, (1-alpha2)*alpha1**2], [0,1],'k')
+    plt.plot([alpha1**2, alpha1**2], [0,1],'k')
+    plt.plot([(1-alpha2)*alpha1, (1-alpha2)*alpha1], [0,1],'k')
+    plt.plot([(1-alpha2)*alpha1 + alpha1**2*alpha2, (1-alpha2)*alpha1 + alpha1**2*alpha2], [0,1], 'k')  
+    plt.plot([(1-alpha2)*alpha1 + (1-alpha2)*alpha2*alpha1, (1-alpha2)*alpha1 + (1-alpha2)*alpha2*alpha1], [0,1],'k')
+    plt.plot([alpha1, alpha1], [0,1], 'k') 
+    
+    plt.plot([(1-alpha2), (1-alpha2)], [0,1], 'k')   
+    plt.plot([(1-alpha2) + alpha1**2*alpha2, (1-alpha2) + alpha1**2*alpha2], [0,1], 'k')  
+    plt.plot([(1-alpha2) + (1-alpha2)*alpha1*alpha2, (1-alpha2) + (1-alpha2)*alpha1*alpha2], [0,1],'k')
+    plt.plot([(1-alpha2) + alpha1*alpha2, (1-alpha2) + alpha1*alpha2], [0,1],'k')
+    plt.plot([(1-alpha2) + (1-alpha2)*alpha2, (1-alpha2) + (1-alpha2)*alpha2], [0,1],'k')
+    plt.plot([(1-alpha2) + (1-alpha2)*alpha2 + alpha1*alpha2**2, (1-alpha2) + (1-alpha2)*alpha2 + alpha1*alpha2**2], [0,1], 'k')  
+    plt.plot([(1-alpha2) + (1-alpha2)*alpha2 + (1-alpha2)*alpha2**2, (1-alpha2) + (1-alpha2)*alpha2 + (1-alpha2)*alpha2**2], [0,1],'k')
+    plt.plot([1, 1], [0,1], 'k') 
+    
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title("2 timesteps distribution") 
+
+           
+    
+    
+    
+    
+    
+    
+    
+    # POINT 3
+    alpha1 = 0.3
+    alpha2 = 0.4 # alpha1+alpha2<=1
+    beta = 0.3 # != 0.5 in the general case
+    n_iter = 100
+    
+    x0 = 0.8
+    y0 = 0.8
+    [x,y] = generate_map(x0,y0,n_iter,alpha1,alpha2,beta)
+    plt.figure()
+    plt.plot(x,y,  'r', linewidth = 0.5, label='Time evolution 1')
+    plt.plot(x[0],y[0], 'rx', label='Start point 1')
+    x1 = np.array([x,y])
+    
+    x0 = 0.7999
+    y0 = 0.7999
+    [x,y] = generate_map(x0,y0,n_iter,alpha1,alpha2,beta)
+    
+    plt.plot(x,y, 'b', linewidth = 0.5, label='Time evolution 1')
+    plt.plot(x[0],y[0], 'bx', label='Start point 1')
     plt.title("Generalized Baker's Map evolution sample")
     plt.xlabel("x")
     plt.ylabel("y")
     plt.legend()
+    x2 = np.array([x,y])
+    
+    plt.figure()
+    plt.semilogy(np.linalg.norm(x1-x2,axis=0))
+    plt.xlabel("Time step n")
+    plt.ylabel("$\epsilon (n)$")
+    plt.title("Distance between trajectories (emergence of chaos)")
     
     
 def ex3_2():
@@ -110,9 +233,9 @@ def ex3_3():
     
     
 def main():
-    #ex3_1()
+    ex3_1()
     #ex3_2()
-    ex3_3()
+    #ex3_3()
     
     
     

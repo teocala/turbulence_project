@@ -131,10 +131,10 @@ def ex1_3(data):
         p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
         x = np.logspace(-2,3,10000,base=10)
         y = savgol_filter(p(x),501,1)
-        plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
+        plt.loglog(x[100:-100], y[100:-100], linewidth=0.8, label='Anemometer '+str(n+1))
         
     
-    plt.loglog(x[3000:7000], np.power(x[3000:7000],-5/3)*1e-4, label='$k^{-5/3}$')
+    plt.loglog(k[1000:100000], np.power(k[1000:100000],-5/3)*1e-2, 'k', linewidth='2', label='$k^{-5/3}$')
     plt.legend()
     plt.xlabel("k (1/s)")
     plt.ylabel("Energy Spectrum ($m^2/s^2$")
@@ -144,12 +144,12 @@ def ex1_3(data):
         print (n+1, ": ", 0.5*np.var(data[str(n)]), np.sum(E[:,n])*dk)
         
     # POINT 4
-    plt.loglog(1.2,0.11, 'k', marker="x") # 1 left
-    plt.loglog(0.7,0.03, 'k', marker="x") # 2 left
-    plt.loglog(0.5,0.026, 'k', marker="x") # 3 left
-    plt.loglog(0.42,0.022, 'k', marker="x") # 4 left
-    plt.loglog(0.34,0.02, 'k', marker="x") # 5 left
-    plt.loglog(0.32,0.014, 'k', marker="x") # 6, left
+    plt.loglog(2.5,0.050, 'k', marker="x") # 1 left
+    plt.loglog(1.2,0.024, 'k', marker="x") # 2 left
+    plt.loglog(1.0,0.014, 'k', marker="x") # 3 left
+    plt.loglog(0.9,0.01, 'k', marker="x") # 4 left
+    plt.loglog(0.8,0.008, 'k', marker="x") # 5 left
+    plt.loglog(0.75,0.0065, 'k', marker="x") # 6, left
 
     plt.loglog(250,0.00004, 'k', marker="x") # 1 right
     plt.loglog(170,0.000008, 'k', marker="x") # 2 right
@@ -163,7 +163,7 @@ def ex1_3(data):
 def ex1_4(data):
     
     Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
-    L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
+    L0 = [2.51327, 5.23599, 6.28319, 6.98132, 7.85398, 8.37758] # from ex1_3, point 4
     
     # POINT 1
     epsilon = np.zeros([6])
@@ -293,16 +293,16 @@ def ex1_5(data):
         p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
         x = np.logspace(-2,3,10000,base=10)
         y = savgol_filter(p(x),501,1)
-        plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
+        plt.loglog(x[100:-100], y[100:-100], linewidth=0.8, label='Anemometer '+str(n+1))
         
-    plt.loglog(x[:5000], np.power(x[:5000],-(1+2*h_opt))*5, label='$k^{-(1+2h)}$')
+    plt.loglog(x[:3000], np.power(x[:3000],-(1+2*h_opt))*3, 'k', linewidth=1.5, label='$k^{-(1+2h)}$')
     plt.legend()
     plt.xlabel("k (1/s)")
     plt.ylabel("Energy Spectrum ($m^2/s^2$)")
     
     # POINT 7
     # Relation (10) with L0
-    L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
+    L0 = [2.51327, 5.23599, 6.28319, 6.98132, 7.85398, 8.37758] # from ex1_3, point 4
     y = L0
     d = range(1,7)
     n_steps = 100
@@ -331,8 +331,8 @@ def ex1_5(data):
     plt.ylabel('L0 (m)')
     
     # Relation (12) with Re
-    Re = [646287.15855169, 500801.04127716, 499838.32346323, 481861.24611346,
-     505926.82006497, 476626.71192208] # ex1_4, point 3
+    Re = [310190.58131171, 290554.46030484, 253269.39286435, 227787.44737698,
+     217626.80784031, 204905.32952346] # ex1_4, point 3
     y = Re
     d = range(1,7)
     n_steps = 100
@@ -465,9 +465,9 @@ def main():
     #ex1_2(data)
     #ex1_3(data)
     #ex1_4(data)
-    #ex1_5(data)
+    ex1_5(data)
     #ex1_6(data)
-    ex1_7(data)
+    #ex1_7(data)
     
     del data
     gc.collect()
