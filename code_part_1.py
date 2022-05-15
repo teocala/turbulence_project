@@ -2,7 +2,7 @@
 """
 Created on Thu Apr 21 16:51:26 2022
 
-@author: matte
+@author: matteo
 """
 
 import numpy as np
@@ -130,7 +130,7 @@ def ex1_3(data):
         
         p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
         x = np.logspace(-2,3,10000,base=10)
-        y = savgol_filter(p(x),301,1)
+        y = savgol_filter(p(x),501,1)
         plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
         
     
@@ -263,7 +263,7 @@ def ex1_5(data):
     plt.legend()
     # Saffman's decay is the most accurate => h = -3/2 that is the same as in point 3 => same d0
     
-    """
+    
     # POINT 6
     print ("ENERGY SPECTRUM:")
     plt.figure()
@@ -292,14 +292,14 @@ def ex1_5(data):
         
         p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
         x = np.logspace(-2,3,10000,base=10)
-        y = savgol_filter(p(x),301,1)
+        y = savgol_filter(p(x),501,1)
         plt.loglog(x[100:-100], y[100:-100], label='Anemometer '+str(n+1))
         
     plt.loglog(x[:5000], np.power(x[:5000],-(1+2*h_opt))*5, label='$k^{-(1+2h)}$')
     plt.legend()
     plt.xlabel("k (1/s)")
     plt.ylabel("Energy Spectrum ($m^2/s^2$)")
-    """
+    
     # POINT 7
     # Relation (10) with L0
     L0 = [5.23598776, 8.97597901, 12.5663706, 14.9599650, 18.4799568, 19.6349541] # from ex1_3, point 4
@@ -465,9 +465,9 @@ def main():
     #ex1_2(data)
     #ex1_3(data)
     #ex1_4(data)
-    ex1_5(data)
+    #ex1_5(data)
     #ex1_6(data)
-    #ex1_7(data)
+    ex1_7(data)
     
     del data
     gc.collect()
