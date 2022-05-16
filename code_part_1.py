@@ -131,10 +131,10 @@ def ex1_3(data):
         u = data[str(n)] - vm
         u = np.nan_to_num(u)
         
-        Ek1 = dx/np.sqrt(2*np.pi)*scipy.fft.fft(u)
-        Ek2 = dx/np.sqrt(2*np.pi)*scipy.fft.ifft(u)
-        Ek1 = 0.5*np.absolute(Ek1/np.sqrt(L))**2
-        Ek2 = 0.5*np.absolute(Ek2/np.sqrt(L))**2
+        Ek1 = dx*scipy.fft.fft(u)
+        Ek2 = dx*scipy.fft.ifft(u)
+        Ek1 = 0.5*np.absolute(Ek1/np.sqrt(2*np.pi*L))**2
+        Ek2 = 0.5*np.absolute(Ek2/np.sqrt(2*np.pi*L))**2
         
         E[:,n] = Ek1 + Ek2
         
@@ -147,19 +147,29 @@ def ex1_3(data):
     plt.loglog(k[1000:100000], np.power(k[1000:100000],-5/3)*1e-2, 'k', linewidth='2', label='$k^{-5/3}$')
     plt.legend()
     plt.xlabel("k (1/s)")
-    plt.ylabel("Energy Spectrum ($m^2/s^2$")
+    plt.ylabel("Energy Spectrum ($m^2/s^2$)")
     
     # POINT 2
     for n in range(6):
         print (n+1, ": ", 0.5*np.var(data[str(n)]), np.sum(E[:,n])*dk)
+    
+    print ("Relative error of first anemometer: ", np.abs(0.5*np.var(data[str(0)])- np.sum(E[:,0])*dk)/0.5*np.var(data[str(0)]))
         
     # POINT 4
-    plt.loglog(2.5,0.050, 'k', marker="x") # 1 left
-    plt.loglog(1.2,0.024, 'k', marker="x") # 2 left
-    plt.loglog(1.0,0.014, 'k', marker="x") # 3 left
-    plt.loglog(0.9,0.01, 'k', marker="x") # 4 left
-    plt.loglog(0.8,0.008, 'k', marker="x") # 5 left
-    plt.loglog(0.75,0.0065, 'k', marker="x") # 6, left
+    K1 = [2.5, 1.2, 1.0, 0.9, 0.8, 0.75] # integral scale frequencies
+    L0 = 2*np.pi/np.array(K1) # integrale length scales
+    K2 = [250, 170, 150, 140, 130, 120] # Kolmogorov scale frequencies
+    eta = 2*np.pi/np.array(K2) # Kolmogorov length scales
+    
+    print("Integral length scales: ", L0)
+    print("Kolmogorov length scales: ", eta)
+    
+    plt.loglog(K1[0],0.050, 'k', marker="x") # 1 left
+    plt.loglog(K1[1],0.024, 'k', marker="x") # 2 left
+    plt.loglog(K1[2],0.014, 'k', marker="x") # 3 left
+    plt.loglog(K1[3],0.01, 'k', marker="x") # 4 left
+    plt.loglog(K1[4],0.008, 'k', marker="x") # 5 left
+    plt.loglog(K1[5],0.0065, 'k', marker="x") # 6, left
 
     plt.loglog(250,0.00004, 'k', marker="x") # 1 right
     plt.loglog(170,0.000008, 'k', marker="x") # 2 right
@@ -167,6 +177,18 @@ def ex1_3(data):
     plt.loglog(140,0.000004, 'k', marker="x") # 4 right
     plt.loglog(130,0.0000024, 'k', marker="x") # 5 right
     plt.loglog(120,0.0000016, 'k', marker="x") # 6 right
+    
+    
+    
+    # EXTRA
+    Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
+    plt.figure()
+    plt.plot(Lc, L0, 'tab:blue', linewidth=0.8)
+    plt.plot(Lc, L0, 'kx')
+    plt.xlabel('Lc (m)')
+    plt.ylabel('L0 (m)')
+    plt.title('Relation between integral scales')
+    
     
         
  
@@ -476,9 +498,9 @@ def main():
     define_variables()
     data = get_data()
     #ex1_1(data)
-    ex1_2(data)
+    #ex1_2(data)
     #ex1_3(data)
-    #ex1_4(data)
+    ex1_4(data)
     #ex1_5(data)
     #ex1_6(data)
     #ex1_7(data)

@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Savitzky} and {Golay}(1964)]{savgol}
+A.~{Savitzky} and M.~J.~E. {Golay}.
+\newblock {Smoothing and differentiation of data by simplified least squares
+  procedures}.
+\newblock \emph{Analytical Chemistry}, 36:\penalty0 1627--1639, January 1964.
+
+\end{thebibliography}

@@ -54,6 +54,7 @@
 \textheight=9.2in
 \headheight=30.9pt
 
+\renewcommand{\bibsection}{}
 %======================= SET YOUR NAME HERE =======================================
 \def\MyName{Matteo Calafà}
 
@@ -98,14 +99,14 @@ To conclude, we remind again that these results are restricted only to homogeneo
 
 \subsection{Data Analysis}
 
-\subsubsection{Velocity Signal in the Spatial Domain}
+\subsubsection{Velocity Signal in the Spatial Domain}\label{velocity_signal_in_the_spatial_domain}
 The measurements correspond to streamwise velocities detected at a frequency $f=20kHz$. This implies that each measurement follows the previous one after 
 \begin{equation} \label{eq1}
-\Delta t \cong 1/f
+\Delta t = 1/f
 \end{equation}
 In this way, we can get the velocity measurements with respect to time. To instead plot them with respect to space, we exploit the Taylor frozen hypothesis to get the distance in space between two measurements as 
 \begin{equation} \label{eq2}
-	\Delta x \cong - <u> \Delta t \overset{(\ref{eq1})}{\cong} -<u>/f
+	\Delta x \cong - <u> \Delta t \overset{(\ref{eq1})}{=} -<u>/f
 \end{equation}
 	where $<u>$ is the mean velocity at each anemometer. \\ 
 Our choice for the first plot (Fig. \ref{fig1}) was to take a maximum distance of 4 meters. With the above formulae, it is then easy to get the number of measurements to plot. It is just needed to pass from the distance in space to the distance in time and see the ratio with respect to $\Delta t$. These results are finally shown in Fig. \ref{fig1}. \\
@@ -144,7 +145,7 @@ In Table \ref{table1} we instead show the results of mean velocities and turbule
 Certainly, the Taylor frozen hypothesis is just an approximation of the real phenomenon since turbulence has a certain effect on the flow variations. In general, the approximation is valid if the turbulence intensity is very small but this is not our case (especially at the beginning where this values is more than $0.12$). Moreover, the turbulence intensity changes a lot in space and this gives incoherent results: see for instance in Fig. \ref{fig1} the velocity measurements in the second anemometer at the position $x=-2m$. This trend is completely different from velocity measured by the first anemometer and associated to the same spatial position. This is because we miss the measurements in the intermediate positions where turbulence intensities have inevitably different values. \\
 However, the error in the estimation of intermediate velocity profiles can be easily bounded. The mean velocity is approximately the same in all the positions while the turbulence intensity can be achieved through an extrapolation. In particular, the turbulence intensity follows a trend similar to the ones presented in section \ref{turbulence_decay} (it is indeed equivalent to the square root of the kinetic energy except for a constant coefficient). Therefore, from the results in the table and the assumption of the trend, a regression analysis can be performed to estimate these values in all the intermediate positions.
 
-\subsubsection{Correlation Length of the Velocity Signal}
+\subsubsection{Correlation Length of the Velocity Signal} \label{correlation_length_of_the_velocity}
 In table \ref{tab2} we show the measures of the correlation length and the integral scale. To compute the autocorrelation, we exploited the optimized \texttt{correlate} function from \texttt{Scipy}. To compute the integral scale, we used the same function and after a rectangular quadrature formula for the integral. First of all, we notice that the two scale lengths are very similar which confirms the fact that the first theoretically approximates the second.
 \begin{table}[h]
 \centering
@@ -180,38 +181,77 @@ Let us now discuss the trend of the lengths. Intuitively, we can say that the de
 Another reason to convince us of this correct trend is the relation between these length scales and the integral length scale presented in section \ref{energy_spectrum}. We will show later the trend of the latter but we now anticipate that it will increase following the theoretical predictions. Therefore, $L_C$ and $L_{int}$ correctly increase as $l_0$ does.
 
 \subsubsection{Energy Spectrum of the Flow} \label{energy_spectrum}
+In Fig. \ref{fig3} we report the measured energy spectrum for each anemometer.
+	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 5in]{./figures/ex1_3.png}
+		\caption{PLOT C - Log-log plot of the energy spectrum of the velocity measurements for each anemometer.  Also a black line that indicates the $-5/3$ slope has been inserted.}
+		\label{fig3}
+	\end{figure}
+\end{center}
+
+The energy spectrum has been calculated exploiting the optimized \texttt{fft} algorithm from \texttt{Scipy} for the positive frequencies and the inverse \texttt{ifft} for the negative frequencies. After that, it is just needed to sum the two contributions (as in the instructions, $E(k) = \tilde{E}(k) + \tilde{E}(-k) )$) paying attention to consider the correct multiplicative coefficient (i.e. $(\Delta x)^2$). As a confirmation, we report here the relative error between
+\begin{equation*}
+	\frac{1}{2}<u^2> \text{ and } \int_0^\infty E(k)\, dk
+\end{equation*}
+for the first anemometer that turns out to be: $2.47 \cdot 10^{-7}$. This very small value is due to the fact that the energy spectrum has been calculated very precisely using the full dataset (this is indeed possible in short times, i.e. less than one minute, thanks to the optimized functions cited above). \\
+To conclude the implementation aspects, the original noisy spectrum has been later filtered with a \emph{Savitzky-Golay filter} (\cite{savgol}). More precisely, a standard application of the filter would overshoot in the left part of the plot because, in a log-log plot with originally equidistant $k$ values, the density of the number of points increases towards the right part of the plot. Therefore, a regression-based filter as Savitzky-Golay would be unbalanced in the two different regions. Our proposed solution is to interpolate the original spectrum at points that follow an exponential grow so that, in a log-log plot, they appear equi-distant and the filter can be then well-balanced. \\
+
+We can finally comment the plots in Fig. \ref{fig3} and see how they respect the predictions of the Kolmogorov theory. We can indeed clearly distinguish the three regions (from left to right: the large scales with driving forces, the inertial range and the dissipation region with small scales). In particular, the inertial range clearly respects the $5/3$ law since the straight line is perfectly parallel to the trend of all the anemometers. Moreover, the large scales lines seem to respect the order predicted in the turbulence decay theory (indeed, this will be shown later in section \ref{turbulence_decay}). \\
+
+From the energy spectrum, we can detect the starting and ending points of the inertial range that correspond to the integral and Kolmogorov frequencies. These points have been signed in the plot with black crosses. Finally, from these frequencies, we can get the integral and Kolmogorov length scales that are reported in table \ref{tab3}. \\
+
 \begin{table}[h]
 \centering
-\caption{Table of results 3.}
+\caption{Table of results 3.}\label{tab3}
     \begin{tabular}{ | c | c | c | c | c | c | c | c |}
     \hline
     Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
     \hline
-    $L_{\mathrm{int},E}$ & & & & & & & \\
+    $L_{\mathrm{int},E}$ & m &2.51327412 &5.23598776& 6.28318531& 6.98131701& 7.85398163 &8.37758041 \\
     \hline
-    $\eta_E$ & & & & & & & \\
+    $\eta_E$ & m& 0.02513274 &0.03695991 &0.0418879&  0.0448799&  0.04833219& 0.05235988  \\
     \hline
     \end{tabular}
 \end{table}
+Reminding what has been discussed in section \ref{correlation_length_of_the_velocity} about the increase of the correlation length, also here the length scales increase with the distance $d$ because of the same reason as before. \\
+As a last result, we want to check effectively the relationship between the two integral scales. This is shown in Fig. \ref{fig4}. Here, we show that the two scales are in fact approximately proportional. \\
+To conclude, we observe that every time $L_{int,E}$ and $\eta_E$ will be used to achieve new results, we will always incur in some inaccuracies due to the graphical detection of these values from the plot that, by its nature, is not precise.
+	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_3_plus.png}
+		\caption{EXTRA - Relation between the integral scale length and integral length of section \ref{correlation_length_of_the_velocity}. Despite some inaccuracies due to the rough $L_0$ detection on the plot in Fig. \ref{fig3}, the two values are clearly proportional.}
+		\label{fig4}
+	\end{figure}
+\end{center}
+
 
 \subsubsection{The Dissipation Rate and Different Reynolds Numbers}
+In table \ref{tab4} we report the values for the energy dissipation rate, the Taylor Reynolds numbers and the Reynolds number that have been computed starting from the results of the previous sections. \\
+
 \begin{table}[h!]
 \centering
-\caption{Table of results 4.}
+\caption{Table of results 4.} \label{tab4}
     \begin{tabular}{ | c | c | c | c | c | c | c | c |}
         \hline
         Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
         \hline
-        $\epsilon$ & & & & & & & \\
+        $\epsilon$ & $m^2/s^3$&2.87076074& 0.15110392& 0.04658421& 0.02112303& 0.01153716 &0.00748596  \\
         \hline
-        $Re_\lambda$ & & & & & & & \\
+        $Re_\lambda$ & Adim. & 969.527172 & 855.4148643& 802.221265 & 780.2180855& 759.1436670&
+        741.4848821 \\
         \hline
-        $Re$ & & & & & & & \\
+        $Re$& Adim. &310190.581 & 290554.460& 253269.393 &227787.447&
+        217626.8078 &204905.321 \\
         \hline
     \end{tabular}
 \end{table}
-
-\subsubsection{Turbulence Decay} \label{turbulence_decay}
+We can again give both a physical interpretation and a mathematical explanation to the decreasing trend of $\epsilon$. First of all, as $\epsilon$ represents the rate of turbulent kinetic energy dissipated in thermal energy, it is clear that the decaying turbulence implies a lower rate of energy shift and then a lower dissipation rate for higher $d$. The second motivation is due to the fact that, by definition of $\epsilon$ and the previous relation between length scales, we can state that $\epsilon \sim E^{3/2}/l_0$. Using the rates from the turbulence decay theory (section \ref{turbulence_decay}), we can soon achieve an order of $2h/(1-h)$ for $\epsilon$ with respect to $d$, therefore a power decreasing law. \\
+Comparing instead the Reynolds numbers, the decreasing trend is again expected from the theory of turbulence decay and, moreover, $Re_{\lambda}$ scales as the square root of $Re$ as predicted from K41. \\
+To conclude, these trends are all coherent with the turbulence decay results and therefore also with the trend of $I$ from section \ref{velocity_signal_in_the_spatial_domain}.
+\subsection{Turbulence Decay} \label{turbulence_decay}
 \begin{table}[h!]
 \centering
 \caption{Table of results 5.}
@@ -250,7 +290,7 @@ Another reason to convince us of this correct trend is the relation between thes
 \appendix
 \section*{Appendix}
 \subsection*{List of Sources}
-
+\bibliography{sources}
 \subsection*{List of Collaborators}
 
 %========================  Personal Statement (DO NOT MODIFY) =====================
