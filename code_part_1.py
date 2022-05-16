@@ -45,7 +45,7 @@ def ex1_1(data):
         max_index = int(max_distance*f/vm)
         x = i+1 - vm*range(max_index)/f # taylor hypothesis
         axs[i//3,i%3].plot(x,data[str(i)][:max_index])
-        axs[i//3,i%3].set_title('Anenometer '+ str(i+1))
+        axs[i//3,i%3].set_title('Anemometer '+ str(i+1))
         axs[i//3,i%3].set_ylim([7,15])
         axs[i//3,i%3].set_xlabel('Distance (m)', fontsize=7)
         axs[i//3,i%3].set_ylabel('Velocity (m/s)', fontsize=7)
@@ -77,6 +77,8 @@ def ex1_2(data):
     Lc = np.zeros([6])
     Lint = np.zeros([6])
     
+    fig, axs = plt.subplots(2, 3)
+    
     print ('EX1_2')
     for i in tqdm(range(6)):
         
@@ -92,9 +94,17 @@ def ex1_2(data):
         dt = np.where(C < 1/np.e)[0][0]
         Lc[i] = dt*vm/f
         
+        axs[i//3,i%3].plot(vm/f*range(3000),C[:3000])
+        axs[i//3,i%3].plot([Lc[i], Lc[i]],[0, C[dt]], 'k')
+        axs[i//3,i%3].set_title('Anemometer '+ str(i+1))
+        axs[i//3,i%3].set_xlabel('l (m)', fontsize=7)
+        axs[i//3,i%3].set_ylabel('C (adim.)', fontsize=7)
+        
         dx = vm/f
         Lint[i] = C[:5*dt].sum()*dx
-        
+    
+    fig.tight_layout(pad=1.5)
+    
     print ('\nCORRELATION LENGTH:', Lc)
     print ('INTEGRAL SCALE: ', Lint)
     
@@ -387,6 +397,8 @@ def ex1_6(data):
     
     # POINT 4
     plt.figure()
+    dist = np.logspace(-3,1,10)
+    flatnesses = []
     for i,l in enumerate(dist):
         N = data[str(0)].shape[0]
         vm = np.mean(data[str(0)])
@@ -394,9 +406,11 @@ def ex1_6(data):
         y = np.array(data[str(0)][dt:]) - np.array(data[str(0)][:-dt])
         num = np.mean(np.power(y,4))
         den = np.mean(np.power(y,2))**2
-        plt.plot(l,num/den, 'x', label = 'l = '+str(l))
-    
+        flatnesses.append(num/den)
+    plt.plot(dist,flatnesses, 'b', label='Empirical flatness')
     plt.plot([0,10],[3,3], label='Gaussian flatness')
+    plt.xlabel('l (m)')
+    plt.ylabel('Flatness (adim.)')
     plt.legend()
     
     
@@ -420,7 +434,7 @@ def ex1_7(data):
     
     plt.figure()
     plt.loglog(dist, S2, label='S2')
-    plt.loglog(dist, np.power(dist,2/3), label ='$x^{2/3}$')
+    plt.loglog(dist, S2[25]/np.power(dist[25],2/3)*np.power(dist,2/3), label ='$x^{2/3}$')
     plt.title('S2')
     plt.xlabel('l (m)')
     plt.ylabel('S2 ($m^2/s^2$)')
@@ -429,7 +443,7 @@ def ex1_7(data):
     
     plt.figure()
     plt.loglog(dist, -S3, label = '-S3')
-    plt.loglog(dist, dist, label ='$y=x$')
+    plt.loglog(dist, -S3[25]/dist[25]*dist, label ='$y=x$')
     plt.title('S3')
     plt.xlabel('l (m)')
     plt.ylabel('S3 ($m^3/s^3$)')
@@ -462,10 +476,10 @@ def main():
     define_variables()
     data = get_data()
     #ex1_1(data)
-    #ex1_2(data)
+    ex1_2(data)
     #ex1_3(data)
     #ex1_4(data)
-    ex1_5(data)
+    #ex1_5(data)
     #ex1_6(data)
     #ex1_7(data)
     

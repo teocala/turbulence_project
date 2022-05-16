@@ -17,6 +17,21 @@
 \usepackage{fancyhdr}
 \usepackage{enumerate}
 \usepackage{lastpage}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{mathtools}
+\usepackage{subcaption}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{caption}
 
 % Custom Defines
 \usepackage[comma,numbers,sort&compress]{natbib}
@@ -40,7 +55,7 @@
 \headheight=30.9pt
 
 %======================= SET YOUR NAME HERE =======================================
-\def\MyName{Firstname Lastname}
+\def\MyName{Matteo Calafà}
 
 %======================= Titlepage (DO NOT MODIFY) ================================
 \titlepic{\includegraphics[width=5cm]{Figures/EPFL_LOGO.jpg}}
@@ -72,43 +87,99 @@ Instructor:&Tobias Schneider
 
 \section{Part I: Statistical Analysis of Turbulence}
 
-\subsection{Introduction \textcolor{blue}{(Limit: 1 page)}} % Remove limit text
+\subsection{Introduction} % Remove limit text
+The Kolmogorov theory gives us some results of the decaying rates of the main quantities in the case of unforced turbulence. Observing experimentally that turbulence decays slowly (i.e. with power and not exponential law), the theory is able to predict these power laws starting from some assumptions and a value for the fixed parameter $h$. These results are also later shown in section \ref{turbulence_decay}. \\
+As anticipated, the theory requires some further assumptions since K41 hypotheses are not enough. First of all, it is assumed that the velocity associated to large scales has an \emph{infrared asymptotic self-similarity}, i.e. $v_l \sim Cl^h$ for $l \rightarrow \infty$ and a certain constant parameter $h$. Then, the \emph{Principle of Permance of Large Eddies} must hold: briefly, if $v_l$ has initially infrared asymptotic law with $-5/2 < h < -1$ and there is no external force, then it is expected to preserve this property in time. This is a non-trivial and not proved statement and it is clearly not included in the K41 theory. \\
+This result implies the energy spectrum to have a $k^{-1-2h}$ law for $k\rightarrow 0$. However, to fit the physical results and the K41, it is needed to assume that there exists a length $l_0$ such that the above law is valid only for bigger length scales. On the other hand, the one provided by the $5/3$ law will be valid only for scales smaller than $l_0$ as indeed already stated in the K41 theory. \\
+Another aspect that would cause inconsistencies with the standard K41 theory is the fact that these results lead to the temporal law of the integral length scale $l_0$ while the classical theory deals with stationary turbulence. However, this is justified by the fact that the power law decay is still very "slow" with respect to the internal turbulence time scales. \\
+Moreover, the decay rates are achieved thanks to the initial hypothesis that $Re = l_0 v_0/\nu \gg 0$ in time. This is an important assumption to assure that turbulence is still effective at the length scale whatever the value of the length scale and instant of time. \\
+To conclude, we remind again that these results are restricted only to homogeneous and isotropic flows, following the hypothesis of the Kolmogorov theory.
+
 
 \subsection{Data Analysis}
 
 \subsubsection{Velocity Signal in the Spatial Domain}
+The measurements correspond to streamwise velocities detected at a frequency $f=20kHz$. This implies that each measurement follows the previous one after 
+\begin{equation} \label{eq1}
+\Delta t \cong 1/f
+\end{equation}
+In this way, we can get the velocity measurements with respect to time. To instead plot them with respect to space, we exploit the Taylor frozen hypothesis to get the distance in space between two measurements as 
+\begin{equation} \label{eq2}
+	\Delta x \cong - <u> \Delta t \overset{(\ref{eq1})}{\cong} -<u>/f
+\end{equation}
+	where $<u>$ is the mean velocity at each anemometer. \\ 
+Our choice for the first plot (Fig. \ref{fig1}) was to take a maximum distance of 4 meters. With the above formulae, it is then easy to get the number of measurements to plot. It is just needed to pass from the distance in space to the distance in time and see the ratio with respect to $\Delta t$. These results are finally shown in Fig. \ref{fig1}. \\
+
+	\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4.5in]{./figures/ex1_1.png}
+		\caption{PLOT A - Streamvise velocity measurements for each anemometer. The plots are shown with respect to space thanks to the Taylor frozen hypothesis.}
+		\label{fig1}
+	\end{figure}
+\end{center}
+
+The $x$ values represent the spatial position of the anemometer and the previous $4m$ as in our choice. First of all, we notice that the mean velocity is almost constant for each anemometer ($\approx 10m/s$). This is expected because of conservation of mass and constant inlet velocity. I.e., the same quantity of air that goes inside the tunnel should goes outside at the same moment if the density is considered constant or almost constant. Because the velocity at the inlet is constant, it implies that the mean velocity should be approximately constant everywhere.
+
+On the other hand, oscillations are more evident in the first anemometer and they later vanish. This is expected and due to two main reasons: the first one is due to the difference between the entrance/unstable region of the tunnel and the fully-developed region where the flow is more asymptotically stable. The second reason is instead related to the decay of unforced turbulence. Clearly, the only applied force is at the inlet of the tunnel where turbulence is therefore more intense. \\
+
+In Table \ref{table1} we instead show the results of mean velocities and turbulence intensities. To obtain them, it is enough to compute respectively the mean and the normalized standard deviation of the velocities measurements at each anemometer. These results clearly confirm the previous discussion: the mean velocity is almost constant in each anemometer and turbulence intensities instead decrease. Clearly, turbulence intensities are related to the turbulence decay and the decrease of oscillations in Fig. \ref{fig1}.
+
 \begin{table} [h]
 \centering
-\caption{Table of results 1.}
+\caption{Table of results 1.} \label{table1}
     \begin{tabular}{ | c | c | c | c | c | c | c | c |}
         \hline
         Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
         \hline
         $d$ & $m$ & 1.0 & 2.0 & 3.0 & 4.0 & 5.0 & 6.0 \\
         \hline
-        $U$ & & & & & & & \\
+        $U$ & $m/s$&10.52223399 &10.52201583&10.52117473 &10.52232686& 10.52234804& 10.52185721 \\
         \hline
-        $I$ & & & & & & & \\
+        $I$ & adim.& 0.12180673& 0.05480351& 0.03954964 &0.0320026  &0.02713776& 0.02407247 \\
         \hline
     \end{tabular}
 \end{table}
 
+Certainly, the Taylor frozen hypothesis is just an approximation of the real phenomenon since turbulence has a certain effect on the flow variations. In general, the approximation is valid if the turbulence intensity is very small but this is not our case (especially at the beginning where this values is more than $0.12$). Moreover, the turbulence intensity changes a lot in space and this gives incoherent results: see for instance in Fig. \ref{fig1} the velocity measurements in the second anemometer at the position $x=-2m$. This trend is completely different from velocity measured by the first anemometer and associated to the same spatial position. This is because we miss the measurements in the intermediate positions where turbulence intensities have inevitably different values. \\
+However, the error in the estimation of intermediate velocity profiles can be easily bounded. The mean velocity is approximately the same in all the positions while the turbulence intensity can be achieved through an extrapolation. In particular, the turbulence intensity follows a trend similar to the ones presented in section \ref{turbulence_decay} (it is indeed equivalent to the square root of the kinetic energy except for a constant coefficient). Therefore, from the results in the table and the assumption of the trend, a regression analysis can be performed to estimate these values in all the intermediate positions.
+
 \subsubsection{Correlation Length of the Velocity Signal}
+In table \ref{tab2} we show the measures of the correlation length and the integral scale. To compute the autocorrelation, we exploited the optimized \texttt{correlate} function from \texttt{Scipy}. To compute the integral scale, we used the same function and after a rectangular quadrature formula for the integral. First of all, we notice that the two scale lengths are very similar which confirms the fact that the first theoretically approximates the second.
 \begin{table}[h]
 \centering
-\caption{Table of results 2.}
+\caption{Table of results 2.} \label{tab2}
     \begin{tabular}{ | c | c | c | c | c | c | c | c |}
     \hline
     Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
     \hline
-    $L_C$ & & & & & & & \\
+    $L_C$ & m & 0.36669985& 0.63447755& 0.77330634& 0.90386788 &1.00909318 &1.08532957 \\
     \hline
-    $L_\mathrm{int}$ & & & & & & & \\
+    $L_\mathrm{int}$ &m & 0.35895344& 0.62704922& 0.76843644& 0.88769361 &1.00077964 &1.07598959 \\
     \hline
     \end{tabular}
 \end{table}
 
-\subsubsection{Energy Spectrum of the Flow}
+In Fig. \ref{fig2}, we instead graphically show the trend of the correlation length.
+	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4.5in]{./figures/ex1_2.png}
+		\caption{PLOT B - Correlation lengths with respect to the space distance $l$. The black lines repreent the associated $L_C$ values.}
+		\label{fig2}
+	\end{figure}
+\end{center}
+
+Before discussing the trend of these lengths, let us clarify why the two are very similar. Giving a glance at the plots, we recognize soon an exponential decay of the correlation function. Since $C(0)=1$ always (by definition and also from the plots) we conclude that it is approximately in the form: $C(l) = e^{-al}$ for a certain steep coefficient a. It implies that:
+\begin{equation*}
+	L_{int} := \int_0^{\infty} C(l)\, dl =  \int_0^{\infty} e^{-al}\, dl = \frac{1}{a}
+\end{equation*}
+We know notice that $1/a$ is also the value such that $C(1/a) = e^{-1}$, from here it follows the equivalence of the two definitions of length scale. \\
+
+Let us now discuss the trend of the lengths. Intuitively, we can say that the decaying of turbulence implies a stronger correlation between distant points. In other words, when the turbulence is strong, the noisy dynamics implies the velocity vectors to be almost independent despite they might be close. \\ 
+Another reason to convince us of this correct trend is the relation between these length scales and the integral length scale presented in section \ref{energy_spectrum}. We will show later the trend of the latter but we now anticipate that it will increase following the theoretical predictions. Therefore, $L_C$ and $L_{int}$ correctly increase as $l_0$ does.
+
+\subsubsection{Energy Spectrum of the Flow} \label{energy_spectrum}
 \begin{table}[h]
 \centering
 \caption{Table of results 3.}
@@ -140,7 +211,7 @@ Instructor:&Tobias Schneider
     \end{tabular}
 \end{table}
 
-\subsubsection{Turbulence Decay}
+\subsubsection{Turbulence Decay} \label{turbulence_decay}
 \begin{table}[h!]
 \centering
 \caption{Table of results 5.}
