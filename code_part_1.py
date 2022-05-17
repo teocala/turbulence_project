@@ -13,6 +13,7 @@ import gc
 import scipy
 from scipy.signal import savgol_filter
 import scipy.signal
+from sklearn.linear_model import LinearRegression
 
 
 def define_variables():
@@ -184,11 +185,14 @@ def ex1_3(data):
     # EXTRA
     Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
     plt.figure()
-    plt.plot(Lc, L0, 'tab:blue', linewidth=0.8)
+    plt.plot(Lc, L0, 'k--', linewidth=0.9, label='$L_0$ measurements')
     plt.plot(Lc, L0, 'kx')
-    plt.xlabel('Lc (m)')
-    plt.ylabel('L0 (m)')
+    reg = LinearRegression(fit_intercept=False).fit(np.array(Lc).reshape(-1,1),np.array(L0).reshape(-1,1))
+    plt.plot(Lc, reg.predict(np.array(Lc).reshape(-1,1)), 'k-', linewidth=0.6, label='Regression line')
+    plt.xlabel('$L_C$ (m)')
+    plt.ylabel('$l_0$ (m)')
     plt.title('Relation between integral scales')
+    plt.legend()
     
     
         
@@ -432,9 +436,10 @@ def ex1_6(data):
         x = 1 - vm*range(max_index)/f # taylor hypothesis
         y = np.array(data[str(0)][dt:dt+max_index]) - np.array(data[str(0)][:max_index])
         axs[i//2,i%2].plot(x,y)
-        axs[i//2,i%2].set_title('l = '+str(l))
+        axs[i//2,i%2].set_title('l = '+str(l) +'m')
         axs[i//2,i%2].set_xlabel('Distance (m)', fontsize=9)
         axs[i//2,i%2].set_ylabel('$\delta_u$ (m/s)', fontsize=9)
+        axs[i//2,i%2].set_ylim([-4,4])
     
     fig.tight_layout(pad=1.5)
     
@@ -451,8 +456,9 @@ def ex1_6(data):
         num = np.mean(np.power(y,4))
         den = np.mean(np.power(y,2))**2
         flatnesses.append(num/den)
-    plt.plot(dist,flatnesses, 'b', label='Empirical flatness')
-    plt.plot([0,10],[3,3], label='Gaussian flatness')
+        
+    plt.semilogx(dist,flatnesses, 'k--', linewidth=0.9, label='Empirical flatness')
+    plt.semilogx([0,10],[3,3], 'k-', linewidth=0.9, label='Gaussian flatness')
     plt.xlabel('l (m)')
     plt.ylabel('Flatness (adim.)')
     plt.legend()
@@ -477,20 +483,20 @@ def ex1_7(data):
         S3[i] = np.mean(np.power(y,3))
     
     plt.figure()
-    plt.loglog(dist, S2, label='S2')
-    plt.loglog(dist, S2[25]/np.power(dist[25],2/3)*np.power(dist,2/3), label ='$x^{2/3}$')
-    plt.title('S2')
+    plt.loglog(dist, S2, 'k--', linewidth='0.9', label='S2')
+    plt.loglog(dist, S2[25]/np.power(dist[25],2/3)*np.power(dist,2/3), 'k-', linewidth='0.9', label ='$x^{2/3}$')
+    plt.title('Second order structure function')
     plt.xlabel('l (m)')
-    plt.ylabel('S2 ($m^2/s^2$)')
+    plt.ylabel('$S_2$ ($m^2/s^2$)')
     plt.legend()
     # A clear scaling is for l in [10^-2, 0.5] 
     
     plt.figure()
-    plt.loglog(dist, -S3, label = '-S3')
-    plt.loglog(dist, -S3[25]/dist[25]*dist, label ='$y=x$')
-    plt.title('S3')
+    plt.loglog(dist, -S3, 'k--', linewidth='0.9', label = '-S3')
+    plt.loglog(dist, -S3[25]/dist[25]*dist, 'k-', linewidth='0.9', label ='$y=x$')
+    plt.title('Third order structure function')
     plt.xlabel('l (m)')
-    plt.ylabel('S3 ($m^3/s^3$)')
+    plt.ylabel('$S_3$ ($m^3/s^3$)')
     plt.legend()
     # A clear scaling is for l in [10^-2, 0.2] 
     
@@ -521,10 +527,10 @@ def main():
     data = get_data()
     #ex1_1(data)
     #ex1_2(data)
-    #ex1_3(data)
+    ex1_3(data)
     #ex1_4(data)
     #ex1_5(data)
-    ex1_6(data)
+    #ex1_6(data)
     #ex1_7(data)
     
     del data

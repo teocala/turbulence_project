@@ -249,7 +249,7 @@ In table \ref{tab4} we report the values for the energy dissipation rate, the Ta
     \end{tabular}
 \end{table}
 We can again give both a physical interpretation and a mathematical explanation to the decreasing trend of $\epsilon$. First of all, as $\epsilon$ represents the rate of turbulent kinetic energy dissipated in thermal energy, it is clear that the decaying turbulence implies a lower rate of energy shift and then a lower dissipation rate for higher $d$. The second motivation is due to the fact that, by definition of $\epsilon$ and the previous relation between length scales, we can state that $\epsilon \sim E^{3/2}/l_0$. Using the rates from the turbulence decay theory (section \ref{turbulence_decay}, equations \ref{l_0_decay}, \ref{E_decay}), we can soon achieve an order of $2h/(1-h)$ for $\epsilon$ with respect to $d$, therefore a power decreasing law. \\
-Comparing instead the Reynolds numbers, the decreasing trend is again expected from the theory of turbulence decay and, moreover, $Re_{\lambda}$ scales as the square root of $Re$ as predicted from K41. \\
+Comparing instead the Reynolds numbers, the decreasing trend is again expected from the theory of turbulence decay and, moreover, $Re_{\lambda}$ scales as the square root of $Re$ (except for a coefficient $\approx 2$) as predicted from K41. \\
 To conclude, these trends are all coherent with the turbulence decay results and therefore also with the trend of $I$ from section \ref{velocity_signal_in_the_spatial_domain}.
 \subsection{Turbulence Decay} \label{turbulence_decay}
 In table \ref{tab5} we report the computations of the kinetic energies per unit mass. This is defined as $\mathcal{E} = 3/2<u^2>$ and the $3$ factor comes from the number of dimensions. Indeed: 
@@ -370,14 +370,74 @@ We expect $d_0$ to be approximately the same for all the above relations (eq. \r
 		\subfloat[Fitting for $l_0$ values]{\includegraphics[width = 2.7in]{./figures/ex1_5_5.png}} 
 		\hspace{8mm}
 		\subfloat[Fitting for $Re$ values]{\includegraphics[width = 2.9in]{./figures/ex1_5_6.png}}
-		\caption{EXTRA - Fitting method applied to equations \ref{l_0_decay} and \ref{Re_decay} fixing $h=-3/2$. We clearly see that this value for $h$ is clearly suitable also for these quantities}
+		\caption{EXTRA - Fitting method applied to equations \ref{l_0_decay} and \ref{Re_decay} fixing $h=-3/2$. We clearly see that this value for $h$ is well suitable also for these quantities.}
 		\label{fig9}
 	\end{figure}
 \end{center}
 
 \subsubsection{Velocity Increments}
+In Fig. \ref{fig10} we show the behaviour of the longitudinal velocity increment $\delta v_{||}(x,l):=u(x+l)-u(x)$ for the distances $l=\{1mm, 1cm, 10cm, 10m\}$. 
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_6.png}
+		\caption{PLOT G - Longitudinal velocity increment for different distances $l$ and measured at the first anemometer.}
+		\label{fig10}
+	\end{figure}
+\end{center}
+
+First of all, considering the turbulent length scales in table \ref{tab3}, we can state that:
+\begin{itemize}
+	\item $l=1mm$ is in the dissipative region ($l<\eta_E$).
+	\item $l=0.01m$ is between the dissipative and inertial region ($I \approx \eta_E$).
+	\item $l=0.1m$ is in the inertial range ($\eta_E < l < L_{int,E}$).
+	\item $l=10m$ is in the large scales region ($l > L_{int,E}$) even if the two lengths are quite comparable.
+\end{itemize}
+
+Focusing now on the results from Fig. \ref{fig10}, the behaviour is expected since a small $l$ implies strong similarity between the two measures (that are indeed near in space) where instead a big $l$ implies no connection and therefore a completely random difference. It is important to notice that this increment of randomness has a limit since two measures that are very distant in space are completely uncorrelated and so they show the same pattern whatever is the value of $l\gg0$. As a demonstration, the difference between the case with $l=0.1m$ and $l=10m$ is not so relevant if compared to the upper plots. \\
+We conclude reminding that this kind of reasoning is very similar to the one made for the autocorrelation functions in section \ref{correlation_length_of_the_velocity}. In both cases, the increase of distance implies a decrease of correlation. \\
+To further investigate the properties of $\delta u_{||}$ we might wonder whether this has a normal distribution. To do that, we analyse the trend of the flatness that is defined as:
+\begin{equation*}
+	f(l) := \frac{\left<\delta u_{||}^4(x,l)\right>}{{\left<\delta u_{||}^2(x,l)\right>}^2}
+\end{equation*}
+For a centred normal distribution, the fourth moment is known to be equal to $3\sigma^4$ while the second moment is the variance. Therefore the flatness is $3\sigma^4/(\sigma^2)^2 = 3$. The flatness of $\delta u_{||}$ is instead shown in Fig. \ref{fig11}
+
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_6_1.png}
+		\caption{PLOT H - Longitudinal velocity increment flatness for different $l$. It is easy to see the convergence towards the normal flatness 3.}
+		\label{fig11}
+	\end{figure}
+\end{center}
+It is reasonable that the flatness tends to the one from the normal distribution because, as we stated above, big distances imply differences of independent measures and, hence, normally distributed. \\
+The reason why the flatness is higher for small distances must be associated to the not normality of $\delta u_{||}(x,l)$ for small $l$. In particular, higher flatnesses are characteristic of the so-called \emph{leptokurtic} distributions, i.e. distributions that are more squeezed at zero and with fatter tails. An equivalent interpretation is the presence of more \emph{outliers}. Therefore, we can reasonably think of $\delta u_{||}$ for small $l$ as more concentrated in zero (see indeed Fig. \ref{fig10}) where, however, there are many outliers due to noisy turbulent effects. Physically, the difference between two near measures is usually small because of the high correlation, however, some noisy sudden effects can sometimes cause completely different measures.
 
 \subsubsection{Structure Functions and Energy Dissipation}
+In Fig. \ref{fig12} and  \ref{fig13} we show the trend of $S_2(l)$ and $S_3(l)$. We know from the K41 that the 5/3 law for the energy spectrum is related to the 2/3 law of $S_2$ (more precisely, from the latter we can obtain the former with the Wiener formula). First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain range. We would like to investigate now whether this is the same range of validity of the 5/3 law in Fig. \ref{fig3}. Since these plots are referred to only the first anemometer, we already computed the Kolmorov and integral length scale for the first anemometers as $\eta_E \approx 0.025m$ and $L_{int,E} \approx 2.51m$ (table \ref{tab3}). In this case, however, the clear $2/3$ slope is observed only in a smaller range where the lower bound is bigger than $0.01m$ and the upper bound is smaller than $1m$. Even if this range is shorter, it is centred (not shifted) as the one from the energy spectrum and has more or less the same order of magnitude. \\
+The same could be noticed in Fig. \ref{fig13} for $S_3$ which respects the 4/5 law for a certain range that, also in this case, is similar but shorter than the one from the energy spectrum. To conclude, the trends of $S_2$ and $S_3$ support the K41 except these intervals should correspond to the one from $E(k)$. \\
+
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_7_1.png}
+		\caption{PLOT I - Second order structure function against distance $l$. In addition, the theoretical trend from K41.}
+		\label{fig12}
+	\end{figure}
+\end{center}
+A last notice is about the fact that from $S_2$ and $S_3$ we could potentially achieve a value for the energy dissipation rate $\epsilon$. Indeed the $2/3$ and $4/5$ laws state that:
+\begin{equation} \label{S2_epsilon}
+	S_2(l) = C_2 \epsilon^\frac{2}{3} l^\frac{2}{3} \hspace{4mm} \text{and} \hspace{4mm}S_3(l) = C_3 \epsilon l
+\end{equation}
+where $C_3 = -4/5$ and $C_2$ can be assumed to be $2.2$. Taking a value for $l$ that is valid for these laws (e.g. $l=0.07m$ is in the middle of the validity ranges in Fig. \ref{fig12} and \ref{fig13}) we can then use the inverses of the equations \ref{S2_epsilon} to get $\epsilon$. These calculations give indeed $\epsilon \approx 2.97 m^2/s^3$ from $S_2$ and $\epsilon \approx 3.01 m^2/s^3$ from $S_3$. These are satisfying results since the original value for $\epsilon$ was $approx 2.87 m^2/s^3$ (table \ref{tab4}).
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_7_2.png}
+		\caption{PLOT J - Third order structure function against distance $l$. In addition, the theoretical trend from K41.}
+		\label{fig13}
+	\end{figure}
+\end{center}
 
 \subsection{Discussion \textcolor{blue}{(Limit: 1 page)}} % Remove limit text
 
