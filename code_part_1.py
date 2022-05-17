@@ -95,6 +95,7 @@ def ex1_2(data):
         Lc[i] = dt*vm/f
         
         axs[i//3,i%3].plot(vm/f*range(3000),C[:3000])
+        axs[i//3,i%3].plot(vm/f*range(3000),np.exp(-1/Lc[i]*vm/f*range(3000)))
         axs[i//3,i%3].plot([Lc[i], Lc[i]],[0, C[dt]], 'k')
         axs[i//3,i%3].set_title('Anemometer '+ str(i+1))
         axs[i//3,i%3].set_xlabel('l (m)', fontsize=7)
@@ -256,13 +257,13 @@ def ex1_5(data):
     
     x = np.linspace(1,6,100)
     plt.figure()
-    plt.plot(d,y,'b*', label='Kinetic energy values')
-    plt.plot(x, alpha_opt*np.power(x,b_opt), label='k1(d)^b')
-    plt.plot(x,np.power(x-d0_opt,b_opt), label='(d-d0)^b')
-    plt.plot(x,alpha_opt*np.power(x-d0_opt,b_opt), label='k1(d-d0)^b')
+    plt.plot(d,y,'kx', label='Kinetic energy values')
+    plt.plot(x, alpha_opt*np.power(x,b_opt),  'k--', linewidth = 0.7, label='k(d)^b')
+    plt.plot(x,np.power(x-d0_opt,b_opt), 'k-.', linewidth = 0.7, label='(d-d0)^b')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b_opt), 'k', label='k(d-d0)^b')
     plt.legend()
     plt.xlabel('Distance d (m)')
-    plt.ylabel('Kinetic energy ($m^2/s^2$)')
+    plt.ylabel('$\mathcal{E}$ ($m^2/s^2$)')
     print("d0 = ", d0_opt, ", h = ", h_opt)
     
     
@@ -271,13 +272,12 @@ def ex1_5(data):
     plt.figure()
     
     for d0 in np.arange(0,1,0.1):
-        plt.loglog(d-d0, kinetic_energy, label='d0 = '+'{:.1f}'.format(d0))
+        plt.loglog(d-d0, kinetic_energy, linewidth=0.7, label='d0 = '+'{:.1f}'.format(d0))
       
     q = -1.2
-    x = np.arange(0.1,1,0.1)
-    plt.loglog(x, 0.1*x**q, 'k--', label='k*d0^'+str(q))
+    plt.loglog((d-d0_opt), alpha_opt*(d-d0_opt)**q, 'k-', label='k*(d-0.65)^'+str(q))
     plt.xlabel('Distance d (m)')
-    plt.ylabel('Kinetic energy ($m^2/s^2$)')
+    plt.ylabel('$\mathcal{E}$ ($m^2/s^2$)')
     plt.legend()
     
     print ('h from graphic method = '+'{:.1f}'.format( q/(q+2)))
@@ -286,14 +286,36 @@ def ex1_5(data):
     
     Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
     plt.figure()
-    plt.loglog(Lc, kinetic_energy, label='Experimental')
-    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-3)/np.power(Lc[0],-3), label='Saffman\'s decay')
-    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-5)/np.power(Lc[0],-5), label='Loitsyanskii\'s decay')
-    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-2)/np.power(Lc[0],-2), label='Self similar decay')
-    plt.xlabel('Lc (m)')
-    plt.ylabel('Kinetic energy ($m^2/s^2$)')
+    plt.loglog(Lc, kinetic_energy, 'kx', label='Experimental')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-3)/np.power(Lc[0],-3), linewidth=0.8, label='Saffman\'s decay')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-5)/np.power(Lc[0],-5), linewidth=0.8, label='Loitsyanskii\'s decay')
+    plt.loglog(Lc, kinetic_energy[0]*np.power(Lc,-2)/np.power(Lc[0],-2), linewidth=0.8, label='Self similar decay')
+    plt.xlabel('$L_c$ (m)')
+    plt.ylabel('$\mathcal{E}$ ($m^2/s^2$)')
     plt.legend()
     # Saffman's decay is the most accurate => h = -3/2 that is the same as in point 3 => same d0
+    
+    # Now we find d_0 considering fixed h=-1.5
+    y = Lc
+    d = range(1,7)
+    n_steps = 100
+    err = np.zeros([n_steps])
+    k = np.zeros([n_steps])
+    h_opt = -1.5
+    b = 1/(1-h_opt)
+    
+    for i,d0 in enumerate(np.linspace(-4,0.9,n_steps)):
+        x = np.column_stack((np.ones([6]))).T
+        ym = np.log(y)-b*np.log(d-d0)
+        k = np.linalg.solve(x.T @ x, x.T @ ym) #least squares formula
+        err[i] = np.sum((np.log(y)-b*np.log(d-d0)-k)**2) #computation of error
+    d0_opt = np.linspace(-4,0.9,n_steps)[np.argmin(err)] 
+    x = np.column_stack((np.ones([6]))).T
+    ym = np.log(y)-b*np.log(d-d0_opt)
+    logalpha_opt = np.linalg.solve(x.T @ x, x.T @ ym)
+    alpha_opt = np.exp(logalpha_opt)
+    
+    print ("From relation with Lc: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
     
     
     # POINT 6
@@ -356,11 +378,11 @@ def ex1_5(data):
     print ("From L0: d0=",d0_opt, ", alpha=",alpha_opt,", h=",h_opt)
     x = np.linspace(1,6,100)
     plt.figure()
-    plt.plot(d,y,'b*', label='L0 values')
-    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
+    plt.plot(d,y,'b*', label='$L_0$ values')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k(d-d0)^b')
     plt.legend()
     plt.xlabel('Distance d (m)')
-    plt.ylabel('L0 (m)')
+    plt.ylabel('$L_0$ (m)')
     
     # Relation (12) with Re
     Re = [310190.58131171, 290554.46030484, 253269.39286435, 227787.44737698,
@@ -387,7 +409,7 @@ def ex1_5(data):
     x = np.linspace(1,6,100)
     plt.figure()
     plt.plot(d,y,'b*', label='Re values')
-    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k1(d-d0)^b')
+    plt.plot(x,alpha_opt*np.power(x-d0_opt,b), label='k(d-d0)^b')
     plt.legend()
     plt.xlabel('Distance d (m)')
     plt.ylabel('Reynolds number (adim.)')
@@ -500,9 +522,9 @@ def main():
     #ex1_1(data)
     #ex1_2(data)
     #ex1_3(data)
-    ex1_4(data)
+    #ex1_4(data)
     #ex1_5(data)
-    #ex1_6(data)
+    ex1_6(data)
     #ex1_7(data)
     
     del data

@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{2}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,5 +10,12 @@ A.~{Savitzky} and M.~J.~E. {Golay}.
 \newblock {Smoothing and differentiation of data by simplified least squares
   procedures}.
 \newblock \emph{Analytical Chemistry}, 36:\penalty0 1627--1639, January 1964.
+
+\bibitem[Trush et~al.(2020)Trush, Pospisil, and Kozmar]{trush_2020}
+Arsenii Trush, Stanislav Pospisil, and Hrvoje Kozmar.
+\newblock {Comparison of Turbulence Integral Length Scales Determination
+  Methods}.
+\newblock \emph{WIT Transactions on Engineering Sciences}, 128:\penalty0
+  113--123, 2020.
 
 \end{thebibliography}

@@ -106,7 +106,7 @@ The measurements correspond to streamwise velocities detected at a frequency $f=
 \end{equation}
 In this way, we can get the velocity measurements with respect to time. To instead plot them with respect to space, we exploit the Taylor frozen hypothesis to get the distance in space between two measurements as 
 \begin{equation} \label{eq2}
-	\Delta x \cong - <u> \Delta t \overset{(\ref{eq1})}{=} -<u>/f
+	\Delta x \simeq - <u> \Delta t \overset{(\ref{eq1})}{=} -<u>/f
 \end{equation}
 	where $<u>$ is the mean velocity at each anemometer. \\ 
 Our choice for the first plot (Fig. \ref{fig1}) was to take a maximum distance of 4 meters. With the above formulae, it is then easy to get the number of measurements to plot. It is just needed to pass from the distance in space to the distance in time and see the ratio with respect to $\Delta t$. These results are finally shown in Fig. \ref{fig1}. \\
@@ -166,7 +166,7 @@ In Fig. \ref{fig2}, we instead graphically show the trend of the correlation len
 	\begin{figure} [h]
 		\centering
 		\includegraphics[width = 4.5in]{./figures/ex1_2.png}
-		\caption{PLOT B - Correlation lengths with respect to the space distance $l$. The black lines repreent the associated $L_C$ values.}
+		\caption{PLOT B - Correlation lengths with respect to the space distance $l$ (blue curves). Orange lines represent instead the functions $e^{-\frac{l}{L_C}}$. Finally, the black lines are the associated $L_C$ values.}
 		\label{fig2}
 	\end{figure}
 \end{center}
@@ -175,7 +175,7 @@ Before discussing the trend of these lengths, let us clarify why the two are ver
 \begin{equation*}
 	L_{int} := \int_0^{\infty} C(l)\, dl =  \int_0^{\infty} e^{-al}\, dl = \frac{1}{a}
 \end{equation*}
-We know notice that $1/a$ is also the value such that $C(1/a) = e^{-1}$, from here it follows the equivalence of the two definitions of length scale. \\
+We now notice that $1/a$ is also the value such that $C(1/a) = e^{-1}$, from here it follows the equivalence of the two definitions of length scale. In addition, these exponential laws are added to Fig. \ref{fig2} to show the effective overlap of the autocorrelation function with its analytical approximation.\\
 
 Let us now discuss the trend of the lengths. Intuitively, we can say that the decaying of turbulence implies a stronger correlation between distant points. In other words, when the turbulence is strong, the noisy dynamics implies the velocity vectors to be almost independent despite they might be close. \\ 
 Another reason to convince us of this correct trend is the relation between these length scales and the integral length scale presented in section \ref{energy_spectrum}. We will show later the trend of the latter but we now anticipate that it will increase following the theoretical predictions. Therefore, $L_C$ and $L_{int}$ correctly increase as $l_0$ does.
@@ -216,7 +216,7 @@ From the energy spectrum, we can detect the starting and ending points of the in
     \end{tabular}
 \end{table}
 Reminding what has been discussed in section \ref{correlation_length_of_the_velocity} about the increase of the correlation length, also here the length scales increase with the distance $d$ because of the same reason as before. \\
-As a last result, we want to check effectively the relationship between the two integral scales. This is shown in Fig. \ref{fig4}. Here, we show that the two scales are in fact approximately proportional. \\
+As a last result, we want to check effectively the relationship between the two integral scales. This is shown in Fig. \ref{fig4}. Here, we show that the two scales are in fact approximately proportional. This fact should not surprise since turbulence length scales are known to be successfully represented by both autocorrelation and spectral length scales and therefore they must scale together (see for instance \cite{trush_2020}).\\
 To conclude, we observe that every time $L_{int,E}$ and $\eta_E$ will be used to achieve new results, we will always incur in some inaccuracies due to the graphical detection of these values from the plot that, by its nature, is not precise.
 	\begin{center} 
 	\begin{figure} [h]
@@ -248,21 +248,132 @@ In table \ref{tab4} we report the values for the energy dissipation rate, the Ta
         \hline
     \end{tabular}
 \end{table}
-We can again give both a physical interpretation and a mathematical explanation to the decreasing trend of $\epsilon$. First of all, as $\epsilon$ represents the rate of turbulent kinetic energy dissipated in thermal energy, it is clear that the decaying turbulence implies a lower rate of energy shift and then a lower dissipation rate for higher $d$. The second motivation is due to the fact that, by definition of $\epsilon$ and the previous relation between length scales, we can state that $\epsilon \sim E^{3/2}/l_0$. Using the rates from the turbulence decay theory (section \ref{turbulence_decay}), we can soon achieve an order of $2h/(1-h)$ for $\epsilon$ with respect to $d$, therefore a power decreasing law. \\
+We can again give both a physical interpretation and a mathematical explanation to the decreasing trend of $\epsilon$. First of all, as $\epsilon$ represents the rate of turbulent kinetic energy dissipated in thermal energy, it is clear that the decaying turbulence implies a lower rate of energy shift and then a lower dissipation rate for higher $d$. The second motivation is due to the fact that, by definition of $\epsilon$ and the previous relation between length scales, we can state that $\epsilon \sim E^{3/2}/l_0$. Using the rates from the turbulence decay theory (section \ref{turbulence_decay}, equations \ref{l_0_decay}, \ref{E_decay}), we can soon achieve an order of $2h/(1-h)$ for $\epsilon$ with respect to $d$, therefore a power decreasing law. \\
 Comparing instead the Reynolds numbers, the decreasing trend is again expected from the theory of turbulence decay and, moreover, $Re_{\lambda}$ scales as the square root of $Re$ as predicted from K41. \\
 To conclude, these trends are all coherent with the turbulence decay results and therefore also with the trend of $I$ from section \ref{velocity_signal_in_the_spatial_domain}.
 \subsection{Turbulence Decay} \label{turbulence_decay}
+In table \ref{tab5} we report the computations of the kinetic energies per unit mass. This is defined as $\mathcal{E} = 3/2<u^2>$ and the $3$ factor comes from the number of dimensions. Indeed: 
+\begin{equation*}
+	\mathcal{E} = \frac{1}{2} < \vec{u} \cdot \vec{u} >= \frac{1}{2} < u_x^2 + u_y^2 + u_z^2 > = \frac{3}{2} <u^2>
+\end{equation*}
+Where the last equality comes from an isotropic assumption. Indeed, what we measure is the streamwise velocity $u_x$ that is assumed to be equal also in the other directions.
 \begin{table}[h!]
 \centering
-\caption{Table of results 5.}
+\caption{Table of results 5.} \label{tab5}
     \begin{tabular}{ | c | c | c | c | c | c | c | c |}
         \hline
         Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
         \hline
-        $\mathcal{E}$ & & & & & & & \\
+        $\mathcal{E}$&$m^2/s^2$ &2.46405129& 0.49877643& 0.25971965& 0.1700926 & 0.12231075 &0.09623149  \\
         \hline
     \end{tabular}
 \end{table}
+
+We finally report the laws predicted from the theory of turbulence decay:
+\begin{equation} \label{l_0_decay}
+	l_0 \propto (d-d_0)^{1/(1-h)}
+\end{equation}
+\begin{equation}\label{u_0_decay}
+	u_0 \propto (d-d_0)^{h/(1-h)}
+\end{equation}
+\begin{equation}\label{Re_decay}
+	Re \propto (d-d_0)^{(1+h)/(1-h)}
+\end{equation}
+\begin{equation}\label{E_decay}
+	E \propto (d-d_0)^{2h/(1-h)}
+\end{equation}
+Where $d_0$ and $h$ are constants. We will equivalently analyse $\mathcal{E}$ instead of $E$.
+	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_5_1.png}
+		\caption{EXTRA - Fitting of the turbulence kinetic energy per unit mass. The other dashed lines are just to show the importance of both $k$ and $d_0$ parameters.}
+		\label{fig5}
+	\end{figure}
+\end{center}
+\paragraph{First method:}
+The first objective is to find $d_0$ and $h$ from the measurements of $\mathcal{E}$ through a fitting method. Certainly linear regression cannot be used because of the non linearity of the exponent, however we can notice that:
+\begin{equation}\label{log_eq}
+	\exists K, d_0, b \hspace{3mm} \text{ such that } \hspace{3mm} \mathcal{E}(d) \approx K(d-d_0)^b \hspace{3mm} \Leftrightarrow \hspace{3mm} \ln{\mathcal{E}} \approx \ln{K} + b \ln{(d-d_0)}
+\end{equation}
+Therefore, applying the logarithm to the data, we only have one non-linear coefficient that is $d_0$. The proposed algorithm is then the following: 
+\begin{enumerate}
+	\item We iterate over a set of hypothetical values for $d_0$ (numerous enough).
+	\item For each of these, we compute the optimal $K$ and $b$ through linear regression.
+	\item Given the choice of $d_0,K,b$, we compute the resulting MSE error.
+	\item At the end of the loop, we take the $d_0$ that gave the lowest MSE error.
+	\item We can finally get the associated $K$ and $b$ again from linear regression.
+\end{enumerate}
+	This is a simple and quick algorithm since iterations are performed over only one parameter. The resulting values are then: $d_0 \simeq 0.65$, $h \simeq -1.46$. In addition we show in Fig. \ref{fig5} the successful fitting method. From now on,  for simplicity, we will consider the optimal exponent as $h=-1.5 = -3/2$. 
+
+\paragraph{Second method:}
+Taking again equation \ref{log_eq}, we then have proven that for correct values of $d_0,b,K$ the log-log plot of $\mathcal{E}$ against $d$ is approximately a straight line. Fig. \ref{fig6} shows a  log-log plot of $\mathcal{E}$ against $(d-d_0)$ for different values of $d_0$. For the same reason as before, only the correct $d_0$ generates a straight line. Indeed, only the pink and grey lines are close to be straight, therefore $d_0$ is between 0.6 and 0.7 as confirmed by the fitting method. Taking it in the middle ($=0.65$), we can estimate $q$ looking at the slope of the lines. The black line shows the trend of $\mathcal{E}$ predicted by choosing the previous value for $d_0$ and the correct $q$ to have parallel lines. Looking at the numerical values of $d_0$ and $q$, we conclude that the graphical and fitting methods are coherent. Indeed, for both, the correct shifting parameter is approximately $d_0=0.65$ and the exponent $h=-3/2 \Leftrightarrow q = -6/5$. 
+
+	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_5_2.png}
+		\caption{PLOT D - Log-log plot of the measured $\mathcal{E}$ with respect to $(d-d_0)$ for different $d_0$. As explained in equation \ref{log_eq}, only the correct $d_0$ generates a straight line. Therefore, the correct $d_0$ is between 0.6 and 0.7. Hence, we have chosen $d_0=0.65$.  After that, the exponent $q$ has been chosen such that the line has the same slope. Finally, the graphical method prediction is shown through the black line.}
+		\label{fig6}
+	\end{figure}
+\end{center}
+
+
+\paragraph{Third method:}
+Another confirmation comes from the scaling property:
+\begin{equation}\label{eq_E_L0}
+	\mathcal{E} \propto l_0^{2h}
+\end{equation}
+First of all, we inform that we can replace $l_0$ with $L_C$ thanks to the reasons given at the end of section \ref{energy_spectrum}. Therefore, we aim now to study this relation and a comparison between the experimental values of $\mathcal{E}$ against $L_C$ is shown in Fig. \ref{fig7}. 
+
+	\begin{center} 
+	\begin{figure} [h!]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_5_3.png}
+		\caption{PLOT E - Log-log plot of the measured $\mathcal{E}$ with respect to $L_C$.}
+		\label{fig7}
+	\end{figure}
+\end{center}
+
+The power law of $\mathcal{E}$ is evident from the straightness of the line. Moreover, these measures coincide almost exactly with the ones from the \emph{Saffman's decay} under which $h=-3/2$. This is expected since we have already shown from the previous methods that $h$ is approximately $-1.5$. \\
+Seeing the excellent overlapping of the experimental values with the Saffman's decay predictions, it should not surprise that the fitting method applied  to equation \ref{eq_E_L0} with fixed $h=-1.5$ returns again a parameter $d_0$ that is approximately $0.65$. 
+
+\paragraph{Comparison of the methods:}
+To conclude this part about the estimation of $d_0$ and $h$, we can observe that the three methods are indeed equivalent since they return the same values (except for approximations). Advantages and disadvantages of each one are listed below:
+\begin{itemize}
+	\item The fitting method is very precise. However, it can be a bit slower if compared to the others because of the several calculations (even if it is in general quite fast). In addition, it is harder to interpret results only from the numerical values.
+	\item The graphical method is instead good to interpret results. However, it is not precise at all. 
+	\item The relation with $L_0$ is precise and has theoretical supports. However, it restricts to only 3 possible theories and it is computationally slow as the first method (since it still needs to iterate over $d_0$).
+\end{itemize}
+
+\paragraph{Turbulence decay and energy spectrum: } 
+ In Fig. \ref{fig8} we show again the energy spectrum. This time we want to study it with respect to the prediction of its trend for large eddies. Despite some noise (we have already discussed the issue of a fitting/filtering method in a logaritmic scale, see section \ref{energy_spectrum}), the lines seem parallel to the predicted line. Therefore, our theoretical results and the choice of $h=-3/2$ seem to confirm again the experiments.
+ 
+ 	\begin{center} 
+ 	\begin{figure} [h]
+ 		\centering
+ 		\includegraphics[width = 4in]{./figures/ex1_5_4.png}
+ 		\caption{PLOT F - Energy spectrum (already shown in Fig. \ref{fig3}) with the theoretical trend for the large scales. Despite some noise, the spectrum seems to scale as the predicted trend.}
+ 		\label{fig8}
+ 	\end{figure}
+ \end{center}
+
+\paragraph{Discussion about the virtual origin $d_0$:}
+The virtual origin $d_0$ is certainly not only a fitting parameter but represents, in a certain way, the starting positions for the decaying turbulence predicted trends. In other words, the laws in equations \ref{l_0_decay}, \ref{u_0_decay}, \ref{Re_decay}, \ref{E_decay} do not have any validity for distances $d < d_0$, neither mathematically (exponentials of negative bases) nor physically. Until the distance $d_0$, the turbulence is expected not to freely decay but, instead, to be still forced. This is the reason why our $d_0$ value is between $0m$ and $1m$, i.e. in the inlet region where applied forces have still a dominant role in the turbulence process. \\
+We expect $d_0$ to be approximately the same for all the above relations (eq. \ref{l_0_decay}, \ref{u_0_decay}, \ref{Re_decay}, \ref{E_decay}) since, the condition of forced/unforced turbulence should hold independently for all the above quantities. Moreover, mathematically, the cited relations are all achieved from one of those and therefore the $d_0$ is the same for each one. However, these are scaling relations and there are inaccuracies in the values achieved for $l_0$ and $Re$, so we do not expect to achieve experimentally the exact same value of $d_0$ for all these quantities. We have indeed performed some fitting methods on equations \ref{l_0_decay} and \ref{Re_decay} fixing the exponent $h=-3/2$ and we achieved respectively $d_0 = 0.75m$ and $d_0 = 0.25m$. Despite these values are not similar with the previous $d_0 = 0.65m$, we still have values in the same interval $0m-1m$ to confirm our theoretical predictions. In addition, we show in Fig. \ref{fig9} that the choice for the $h$ value is suitable also for the $l_0$ and $Re$ values.
+
+
+
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\subfloat[Fitting for $l_0$ values]{\includegraphics[width = 2.7in]{./figures/ex1_5_5.png}} 
+		\hspace{8mm}
+		\subfloat[Fitting for $Re$ values]{\includegraphics[width = 2.9in]{./figures/ex1_5_6.png}}
+		\caption{EXTRA - Fitting method applied to equations \ref{l_0_decay} and \ref{Re_decay} fixing $h=-3/2$. We clearly see that this value for $h$ is clearly suitable also for these quantities}
+		\label{fig9}
+	\end{figure}
+\end{center}
 
 \subsubsection{Velocity Increments}
 
