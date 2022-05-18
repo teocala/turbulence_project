@@ -1,4 +1,4 @@
-\begin{thebibliography}{2}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -17,5 +17,12 @@ Arsenii Trush, Stanislav Pospisil, and Hrvoje Kozmar.
   Methods}.
 \newblock \emph{WIT Transactions on Engineering Sciences}, 128:\penalty0
   113--123, 2020.
+
+\bibitem[Yoon and Warhaft(1990)]{yoon_warhaft_1990}
+Kyunghwan Yoon and Z.~Warhaft.
+\newblock The evolution of grid-generated turbulence under conditions of stable
+  thermal stratification.
+\newblock \emph{Journal of Fluid Mechanics}, 215:\penalty0 601–638, 1990.
+\newblock \doi{10.1017/S0022112090002786}.
 
 \end{thebibliography}

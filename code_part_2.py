@@ -74,6 +74,21 @@ def ex3_1():
     for n in range(n_sample):
         x0 = np.random.uniform()
         y0 = np.random.uniform()
+        [x,y] = generate_map(x0,y0,0,alpha1,alpha2,beta)
+        plt.plot(x[-1],y[-1], 'b.', markersize=0.8)
+        
+    plt.plot([0, 0], [0,1], 'k')   
+    plt.plot([1, 1], [0,1], 'k') 
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title("0 timestep distribution") 
+    
+    
+    
+    plt.figure()
+    for n in range(n_sample):
+        x0 = np.random.uniform()
+        y0 = np.random.uniform()
         [x,y] = generate_map(x0,y0,1,alpha1,alpha2,beta)
         plt.plot(x[-1],y[-1], 'b.', markersize=0.8)
         
@@ -135,7 +150,7 @@ def ex3_1():
     
     plt.xlabel('x')
     plt.ylabel('y')
-    plt.title("2 timesteps distribution") 
+    plt.title("3 timesteps distribution") 
 
            
     
@@ -149,33 +164,60 @@ def ex3_1():
     alpha1 = 0.3
     alpha2 = 0.4 # alpha1+alpha2<=1
     beta = 0.3 # != 0.5 in the general case
-    n_iter = 100
+    n_iter = 20
     
     x0 = 0.8
     y0 = 0.8
     [x,y] = generate_map(x0,y0,n_iter,alpha1,alpha2,beta)
     plt.figure()
-    plt.plot(x,y,  'r', linewidth = 0.5, label='Time evolution 1')
+    plt.plot(x,y,  'tab:blue', linewidth = 0.5, label='Time evolution 1')
     plt.plot(x[0],y[0], 'rx', label='Start point 1')
-    x1 = np.array([x,y])
     
-    x0 = 0.7999
-    y0 = 0.7999
-    [x,y] = generate_map(x0,y0,n_iter,alpha1,alpha2,beta)
+    x1 = 0.7999
+    y1 = 0.7999
+    [x,y] = generate_map(x1,y1,n_iter,alpha1,alpha2,beta)
     
-    plt.plot(x,y, 'b', linewidth = 0.5, label='Time evolution 1')
-    plt.plot(x[0],y[0], 'bx', label='Start point 1')
-    plt.title("Generalized Baker's Map evolution sample")
+    plt.plot(x,y, 'tab:orange', linewidth = 0.5, label='Time evolution 2')
+    plt.plot(x[0],y[0], 'bx', label='Start point 2')
+    plt.title("Evolution of trajectories from two near points")
     plt.xlabel("x")
     plt.ylabel("y")
-    plt.legend()
-    x2 = np.array([x,y])
+    #plt.legend()
     
+    
+
+    n_iter = 90
     plt.figure()
-    plt.semilogy(np.linalg.norm(x1-x2,axis=0))
+    
+    [x,y] = generate_map(x0,y0,n_iter,0.3,0.4,0.4)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,0.3,0.4,0.4)
+    T2 = np.array([x,y])
+    plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\alpha_1=0.3, \alpha_2=0.4, \beta=0.4$")
+    
+    [x,y] = generate_map(x0,y0,n_iter,0.3,0.4,0.2)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,0.3,0.4,0.2)
+    T2 = np.array([x,y])
+    plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\alpha_1=0.3, \alpha_2=0.4, \beta=0.2$")
+    
+    [x,y] = generate_map(x0,y0,n_iter,0.3,0.2,0.4)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,0.3,0.2,0.4)
+    T2 = np.array([x,y])
+    plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\alpha_1=0.3, \alpha_2=0.2, \beta=0.4$")
+    
+    [x,y] = generate_map(x0,y0,n_iter,0.1,0.4,0.4)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,0.1,0.4,0.4)
+    T2 = np.array([x,y])
+    plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\alpha_1=0.1, \alpha_2=0.4, \beta=0.4$")
+    
+    
     plt.xlabel("Time step n")
     plt.ylabel("$\epsilon (n)$")
     plt.title("Distance between trajectories (emergence of chaos)")
+    plt.legend()
     
     
 def ex3_2():
