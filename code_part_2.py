@@ -223,7 +223,7 @@ def ex3_1():
 def ex3_2():
     
     alpha_nom = 1
-    alpha_den = 3
+    alpha_den = 5
     alpha = alpha_nom/alpha_den
     beta = 0.6 # != 0.5 in the general case
     
@@ -240,8 +240,7 @@ def ex3_2():
         x.append(x_n[-1])
         y.append(y_n[-1])
         
-        
-    #n_divisions = int(1/alpha1**n_iter)
+
     r = (1/alpha_den)**n_iter
     n_divisions = int(alpha_den**n_iter)
     count_matrix = np.zeros([n_divisions,n_divisions])
@@ -260,13 +259,17 @@ def ex3_3():
     J = np.array([[alpha, 0],[0, 2]])
     n_iter = 50
     
-    h = [1,0]
+    h = [0.5,0]
+    
+    h = h/np.linalg.norm(h)
     for i in range(n_iter):
         h = J @ h
     lambda_ = np.log(np.linalg.norm(h))/n_iter
     print ("Expected Lambda 1 = ", np.log(alpha), "Numerical Lambda 1 = ", lambda_)
     
-    h = [0,1]
+    h = [0.1,0.05] # this vector can be defined in any way except parallel to [1,0]. Indeed, it will anyway converge to the maximal eigenvalue
+    
+    h = h/np.linalg.norm(h)
     for i in range(n_iter):
         h = J @ h
     lambda_ = np.log(np.linalg.norm(h))/n_iter
@@ -274,10 +277,39 @@ def ex3_3():
     
     
     
+    
+    
+    n_iter = 100
+    alpha = 0.4
+    
+    l1 = np.log(alpha)
+    l2 = np.log(2)
+    
+    
+    plt.figure()
+    x0 = 0.8
+    y0 = 0.8
+    x1 = 0.7999
+    y1 = 0.7999
+    [x,y] = generate_map(x0,y0,n_iter,alpha,alpha,0.5)
+    print (x)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,alpha,alpha,0.5)
+    T2 = np.array([x,y])
+    plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\epsilon(n)$")
+    plt.semilogy(range(13), 2e-4*np.exp(l2*range(13)), label=r"$e^{λ_2 n}$")
+    plt.semilogy(range(52,100), 1e20*np.exp(l1*range(52,100)), label=r"$e^{λ_1 n}$")
+    plt.xlabel("Timestep n")
+    plt.ylabel(r"$\epsilon(n)$")
+    plt.legend()
+    plt.title(r"Distance between trajectories in the case of $\beta=0.5$")
+    
+    
+    
 def main():
-    ex3_1()
+    #ex3_1()
     #ex3_2()
-    #ex3_3()
+    ex3_3()
     
     
     

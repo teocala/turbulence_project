@@ -453,7 +453,25 @@ A last notice is about the fact that from $S_2$ and $S_3$ we could potentially a
 \begin{equation} \label{S2_epsilon}
 	S_2(l) = C_2 \epsilon^\frac{2}{3} l^\frac{2}{3} \hspace{4mm} \text{and} \hspace{4mm}S_3(l) = C_3 \epsilon l
 \end{equation}
-where $C_3 = -4/5$ and $C_2$ can be assumed to be $2.2$. Taking a value for $l$ that is valid for these laws (e.g. $l=0.07m$ is in the middle of the validity ranges in Fig. \ref{fig12} and \ref{fig13}) we can then use the inverses of the equations \ref{S2_epsilon} to get $\epsilon$. These calculations give indeed $\epsilon \approx 2.97 m^2/s^3$ from $S_2$ and $\epsilon \approx 3.01 m^2/s^3$ from $S_3$. These are satisfying results since the original value for $\epsilon$ was $\approx 2.87 m^2/s^3$ (table \ref{tab4}).
+where $C_3 = -4/5$ and $C_2$ can be assumed to be $2.2$. Taking a value for $l$ that is valid for these laws (e.g. $l=0.07m$ is in the middle of the validity ranges in Fig. \ref{fig12} and \ref{fig13}) we can then use the inverses of the equations \ref{S2_epsilon} to get $\epsilon$. These values are shown in table \ref{tab6}.
+
+\begin{table}[h]
+	\centering
+	\caption{Dissipation rate value from $S_2$ and $S_3$ relations} \label{tab6}
+	\begin{tabular}{ | c | c | c |}
+		\hline
+		Method &  $\epsilon$ value ($m^2/s^3$) \\
+		\hline
+		Standard definition (from table \ref{tab4}) & 2.87 \\
+		\hline
+		From $S_2$ ($2/3$ law) & 2.97\\
+		\hline
+		From $S_3$ ($4/5$ law) & 3.01\\
+		\hline
+	\end{tabular}
+\end{table}
+These satisfying results confirm again the validity of the theory in our experiment.
+
 
 \subsection{Discussion \textcolor{blue}{(Limit: 1 page)}} % Remove limit text
 
@@ -543,8 +561,8 @@ Now that the general structure of the map has been described, we can analyse the
 		\label{fig18}
 	\end{figure}
 \end{center}
-To conclude, two near points tend to diverge for every choice of the parameters (except for the special case $\beta=0.5$ as we will see later). Moreover, every trajectory does not convergence and continues to move in different part of the square (as seen in Fig. \ref{fig17}). We can conclude from these qualitative results that the generalized Baker's Map is chaotic. \\
-We remind, moreover, that a one-dimensional map can potentially be chaotic but only if it is not invertible. A quick check from equation $\ref{eq_map}$ can reveal that it is indeed not invertible.
+To conclude, two near points tend to diverge for every choice of the parameters (except for the special case $\beta=0.5$ as we will see later). Moreover, every trajectory does not convergence and continues to move in different part of the square (as seen in Fig. \ref{fig17}). We can conclude from these qualitative results that the generalized Baker's Map seems to be chaotic. \\
+We remind that, in contrast with continuous systems, a 2-dimensional map can potentially be chaotic.
 
 
 \subsubsection{Strange Attractor and Fractal Dimensions}
@@ -577,8 +595,121 @@ Let us make some checks with two trivial cases:
  	\item If $\alpha=1/2$, the bands correspond to a full cover of the square at each time step (indeed, $\alpha$ coincides with $1-\alpha$). Therefore, the attractive set is the full square at every time step. Not by chance, with $b=2a$ we get $D_0 = 1 + \log(2a)/\log(2a)$ = 2. I.e., the attractive set is not a strange attractor but the normal 2-dimensional square. 
  	\item If $\alpha=1/3$, one can easily see that the limit to the strange attractor along $x$ is the same as the construction of the Cantor set (indeed, it starts with three equally wide bands). In this case, $D_{0,x} = \log(2)/\log(3)$ that is the same dimension of the Cantor set.
  \end{enumerate}
+To achieve a numerical result, we simulate the trajectory for $5\cdot 10^6$ uniformly distributed initial points and we use boxes of the size defined above. In particular, we perform the box counting operation for $n=5$. There are other possible choices for $n$ since, from the theory above, for every $n \geq 1 $ we should get the same $D_0$. However, we increase the value $n$ to assure the $\lim_{n\rightarrow \infty}$ operation. On the other hand, bigger values for $n$ would imply smaller boxes and therefore huge memory allocations. This is the reason why we considered $n=5$ as a reasonable value. \\
+For the implementation details, it is easy to verify which box the point belongs to using the division of the coordinate over the box length without the remainder. Results are shown in table \ref{tab7}.
+
+
+\begin{table}[h]
+	\centering
+	\caption{Analytical and numerical box counting dimensions} \label{tab7}
+	\begin{tabular}{ | c | c | c |}
+		\hline
+		$\alpha$ & Theoretical value & Numerical value \\
+		\hline
+		$1/5$ & $1 + \frac{\log(2)}{\log(5)} \approx 1.4307$& 1.4307\\
+		\hline
+		 $1/3$ & $1 + \frac{\log(2)}{\log(3)} \approx 1.631$& 1.631\\
+		 \hline
+		 $2/5$ & $1 + \frac{\log(4)}{\log5)} \approx 1.861$& 1.824\\
+		 \hline
+		 $1/2$ & $1 + \frac{\log(2)}{\log(2)} = 2$& 2.000\\
+		\hline
+	\end{tabular}
+\end{table}
+
+As expected, except for $\alpha=2/5$ where some bands are probably not covered by the multiple trajectories, in all the other cases all the bands are correctly covered by points and therefore the numerical solution gives the exact analytical solution. Again, the case $\alpha=1/3$ and $\alpha=1/2$ give the values that are well-known also without the detailed study of the strange attractors.
 
 \subsubsection{Chaos and Lyapunov Exponents}
+Other important characteristics of chaotic systems are well described by the Lyapunov exponents. We aim to compute these values analytically and numerically in the case of $\alpha=\alpha_1=\alpha_2$ and $\beta=1/2$ and compare with the behaviour of the system. Consider an initial displacement $\vec{\epsilon_0}$ as we already saw in Fig. \ref{fig18}. Then, the Lyapunov exponent is defined as:
+\begin{equation*}
+	\lambda := \lim_{n\rightarrow \infty} \lim_{\vec{\epsilon_0} \rightarrow 0 } \frac{1}{n} \log \abs{\left( \prod_{j=0}^{n-1} J_M(\vec{x_j})\right) \frac{\vec{\epsilon_0}}{\abs{\vec{\epsilon_0}}}}
+\end{equation*}
+where $J_M$ represents the Jacobian of the map. We know that for a $2$-dimensional map there are $2$ Lyapunov exponents and, indeed, the value of $\lambda$ depends on the choice of the displacement direction. \\
+Let us firstly compute the Jacobian of the map. A quick analysis to equation \ref{eq_map} with the conditions $\alpha=\alpha_1=\alpha_2$ and $\beta=1/2$ reveals that the partial derivatives are the same in both the cases $y_n < \beta$, $y_n \ge \beta$. Hence, the Jacobian has the following simple form:
+\begin{equation*}
+	J_M(\vec{x_n}) = \begin{bmatrix} \alpha & 0 \\ 0 & 2\end{bmatrix} \hspace{5mm} \forall n \ge 0 
+\end{equation*}
+To detect the two exponents, we choose the displacements as parallel to the eigenvectors of $J_M$ that are trivially $\vec{h_1}=[1,0]$ and $\vec{h_2}=[0,1]$ $\forall n\ge0$. Therefore:
+\begin{equation*}
+	\begin{aligned}
+		\lambda_1 = \lim_{n\rightarrow \infty} \frac{1}{n} \log \abs{\begin{bmatrix} \alpha^n & 0 \\ 0 & 2^n\end{bmatrix} \begin{bmatrix} 1 \\ 0\end{bmatrix} } =& \lim_{n\rightarrow \infty} \frac{1}{n} \log (\alpha^n) = \log(\alpha)  < 0 \hspace{4mm} \forall \alpha \le 0.5\\
+		\lambda_2 = \lim_{n\rightarrow \infty} \frac{1}{n} \log \abs{\begin{bmatrix} \alpha^n & 0 \\ 0 & 2^n\end{bmatrix} \begin{bmatrix} 0 \\ 1\end{bmatrix} } =& \lim_{n\rightarrow \infty} \frac{1}{n} \log (2^n) = \log(2) \approx 0.693 \\
+	\end{aligned}
+\end{equation*}
+As confirmed by the theory, the Lyapunov exponents are represented by the logarithm of the eigenvalues. These values have also been computed numerically for $n=50$ with different choices for the initial displacement $\epsilon_0$ and $\alpha=0.4$. Results are shown in table \ref{tab8}. \\
+
+\begin{table}[h]
+	\centering
+	\caption{Analytical and numerical Lyapunov exponents for different initial displacements} \label{tab8}
+	\begin{tabular}{ | c | c | c |}
+		\hline
+		$\epsilon_0$ & Theoretical value & Numerical value \\
+		\hline
+		$[0.1,0]$ & $\approx -0.916$& -0.916\\
+		\hline
+		$[0,0.1]$ & $\approx  0.693$& 0.693\\
+		\hline
+		$[0.5,0]$ & $\approx -0.916$& -0.916\\
+		\hline
+		$[0,0.5]$ & $\approx  0.693$& 0.693\\
+		\hline
+		$[0.2,0.5]$ & $\approx  0.693$& 0.692\\
+		\hline
+		$[0.1,0.05]$ & $\approx  0.693$& 0.677\\
+		\hline
+	\end{tabular}
+\end{table}
+Results are expected from the theory. Indeed, every initial displacement that is not parallel to the first eigenvalue generates a limit that tends to be bigger eigenvalue and, hence, to the bigger Lyapunov exponent. In formulae, every $\vec{\epsilon_0}$ that is not proportional to $[1,0]$ returns the second Lyapunov exponent, otherwise the first. \\
+Let us see now the relation between these values and the chaotic nature of the system. First of all, as expected, one exponent is positive. Indeed, chaos is generated only if at least one exponent is positive. Not by chance, the positive exponent is the one related to the $y$ direction. It is indeed in this direction that bands are stretched while they are shrunk along the $x$ direction. In addition, if we sum the exponents we get a negative value except for $\alpha=0.5$ that gives zero sum. This should not surprise since, as already seen in Fig. \ref{fig15} and \ref{fig16}, the total area tends to decrease and therefore the system is dissipative. On the contrary, the choice of $\alpha=0.5$ gives the full cover of the square (fractal dimension = 2 as seen before) and hence the area is constant and the system conservative. \\
+In the specific case of $\beta=0.5$, the system presents a very singular behaviour that can be well explained by the Lyapunov exponents. First of all, we show in Fig. \ref{fig19} the trend of the displacement in this scenario. \\
+
+
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex3_3.png}
+		\caption{Euclidean distances between trajectories starting at $[0.8,0.8]$ and $[0.7999, 0.7999]$ for $\beta=0.5$ and $\alpha=0.4$. Chaos emerges but, after some iterations, the two trajectories come back nearby. In addition, the increase and decrease of distance follow exactly the two Lyapunov exponents.}
+		\label{fig19}
+	\end{figure}
+\end{center}
+
+The fact that the distance initially increases with the same scale of $e^{\lambda_2 n}$  $(\lambda_2=\log(2))$ is clearly expected from the theory but what is not expected is the decrease in the second part. This is observed only in the case $\beta=0.5$ and therefore, it is necessary to look at the law of $y$ more in details. Equation \ref{eq_map} applied to this specific case and only for the $y$ component is the following:
+\begin{equation*}
+	y_{n+1} = 
+	\begin{cases}
+		2y_n & \text{if } y_n < 0.5 \\
+		2y_n -1 & \text{if } y_n \ge 0.5
+	\end{cases}
+\end{equation*}
+What is observed from the simulations is that $y$ eventually gets the exact 0 value. This is clearly not possible from the theory because the point $(x,y) = [0,0]$ is not a stable equilibrium point. Therefore, this result should be motivated by computational reasons. We know that every number $y \in [0,1]$ is represented by an infinite series of digits $\{I_i\}_{i \in \mathbb{N}}$ such that $I_i \in \{0,1\}$ and:
+\begin{equation*}
+	y = \sum_{i=1}^\infty \frac{I_i}{2^i}
+\end{equation*}
+In computer memories, however, this series is not infinite but interrupted at a certain $i=N$. Let us see now the effect of the map on one number with this representation. Hence, we take $y_n$ in this form and distinguish the two cases.
+\begin{enumerate}
+	\item $y_n < 0.5$: this implies $I_1=0$. Therefore:
+	\begin{equation*}
+		y_{n+1} = 2y_n = \sum_{i=2}^N \frac{2 I_i}{2^i} = \sum_{i=1}^{N-1} \frac{I_{i+1}}{2^i}
+	\end{equation*}
+	\item $y_n \ge 0.5$: this implies $I_1=1$. Therefore:
+	\begin{equation*}
+		y_{n+1} = 2y_n - 1 = 2\left( \frac{1}{2} +\sum_{i=2}^N \frac{I_i}{2^i}\right) - 1 =  \sum_{i=2}^N \frac{2 I_i}{2^i} = \sum_{i=1}^{N-1} \frac{I_{i+1}}{2^i}
+	\end{equation*}
+\end{enumerate}
+Hence, in both the cases, the following value for $y$ has the same representation except one term of the sum less. This means that, if $y_0$ is represented by $N$ digits (this depends on the way memory is allocated), then $y_1$ consists of $N-1$ digits,  $y_2$ is represented by $N-2$ digits until, after $N$ steps, $y_N$ is represented by $0$ digits, i.e. $y_N = 0$. \\
+As expected, this is not a result provided by the theory but due to computational reasons. We can now focus on the role of the first Lyapunov exponent. \\
+We already know that the system is chaotic because of the positive second Lyapunov exponent that is related to the $y$ direction. However, in this specific case, we know that $y_n$ eventually gets the exact zero value and, so, it will not change its value after the step $N$. This means that our original system transforms to a 1-dimensional system where the $y$ component is fixed to zero. Explicitly, the system becomes:
+\begin{equation*}
+	\begin{cases}
+		x_{n+1} = \alpha x_n \\
+		y_{n+1} = 0
+	\end{cases}
+ 	\text{ if } n > N
+\end{equation*}
+It is now easy to compute the dynamics of the system since we can only focus on $x$.  This means that $\lambda_2$ does not affect the system no more and the only Lyapunov exponent left is $\lambda_1$, that is negative. Therefore, the system cannot be chaotic any more. Indeed, $x=0$ is a stable equilibrium point and we expect trajectories to converge to it. At this point, the speed of convergence is as usual governed by $e^{\lambda_1 n}$ as confirmed in Fig. \ref{fig19}.
+
+
+
 \subsection{Discussion \textcolor{blue}{(Limit: 1/2 page)}} % Remove limit text
 
 
