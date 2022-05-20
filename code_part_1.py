@@ -16,6 +16,16 @@ import scipy.signal
 from sklearn.linear_model import LinearRegression
 
 
+"""
+*********    READ ME   *********
+
+Except for the first two functions (that are general functions), all the following functions
+are each one related to one section of the instructions paper sheet.
+Inside each function/section, every point from the bullet list is specified with "POINT N".
+"""    
+
+
+
 def define_variables():
     global f 
     f = 20e3
@@ -33,6 +43,11 @@ def get_data():
         else:
             data = data.join(new_data)
     return data
+
+
+
+
+
         
        
         
@@ -140,10 +155,10 @@ def ex1_3(data):
         
         E[:,n] = Ek1 + Ek2
         
-        p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n])
-        x = np.logspace(-2,3,10000,base=10)
-        y = savgol_filter(p(x),501,1)
-        plt.loglog(x[100:-100], y[100:-100], linewidth=0.8, label='Anemometer '+str(n+1))
+        p = scipy.interpolate.interp1d(k[:max_idx],E[:max_idx,n]) # needed to make the filter well-balanced, see report
+        x = np.logspace(-2,3,10000,base=10) # we indeed use the filter on exponential growing evaluations
+        y = savgol_filter(p(x),501,1) # savitzky golay filter
+        plt.loglog(x[100:-100], y[100:-100], linewidth=0.8, label='Anemometer '+str(n+1)) # we cut the spectrum evaluation on the borders from the plot
         
     
     plt.loglog(k[1000:100000], np.power(k[1000:100000],-5/3)*1e-2, 'k', linewidth='2', label='$k^{-5/3}$')
@@ -166,23 +181,23 @@ def ex1_3(data):
     print("Integral length scales: ", L0)
     print("Kolmogorov length scales: ", eta)
     
-    plt.loglog(K1[0],0.050, 'k', marker="x") # 1 left
-    plt.loglog(K1[1],0.024, 'k', marker="x") # 2 left
-    plt.loglog(K1[2],0.014, 'k', marker="x") # 3 left
-    plt.loglog(K1[3],0.01, 'k', marker="x") # 4 left
-    plt.loglog(K1[4],0.008, 'k', marker="x") # 5 left
-    plt.loglog(K1[5],0.0065, 'k', marker="x") # 6, left
+    plt.loglog(K1[0],0.050, 'k', marker="x") # anemometer 1 left
+    plt.loglog(K1[1],0.024, 'k', marker="x") # anemometer 2 left
+    plt.loglog(K1[2],0.014, 'k', marker="x") # anemometer 3 left
+    plt.loglog(K1[3],0.01, 'k', marker="x") # anemometer 4 left
+    plt.loglog(K1[4],0.008, 'k', marker="x") # anemometer 5 left
+    plt.loglog(K1[5],0.0065, 'k', marker="x") # anemometer 6, left
 
-    plt.loglog(250,0.00004, 'k', marker="x") # 1 right
-    plt.loglog(170,0.000008, 'k', marker="x") # 2 right
-    plt.loglog(150,0.000006, 'k', marker="x") # 3 right
-    plt.loglog(140,0.000004, 'k', marker="x") # 4 right
-    plt.loglog(130,0.0000024, 'k', marker="x") # 5 right
-    plt.loglog(120,0.0000016, 'k', marker="x") # 6 right
+    plt.loglog(K2[0],0.00004, 'k', marker="x") # anemometer 1 right
+    plt.loglog(K2[1],0.000008, 'k', marker="x") # anemometer 2 right
+    plt.loglog(K2[2],0.000006, 'k', marker="x") # anemometer 3 right
+    plt.loglog(K2[3],0.000004, 'k', marker="x") # anemometer 4 right
+    plt.loglog(K2[4],0.0000024, 'k', marker="x") # anemometer 5 right
+    plt.loglog(K2[5],0.0000016, 'k', marker="x") # anemometer 6 right
     
     
     
-    # EXTRA
+    # EXTRA (Relation between integral scales)
     Lc = [0.36669985, 0.63447755, 0.77330634, 0.90386788, 1.00909318, 1.08532957] # from ex1_2, point 1
     plt.figure()
     plt.plot(Lc, L0, 'k--', linewidth=0.9, label='$L_0$ measurements')
@@ -335,7 +350,7 @@ def ex1_5(data):
     dk = 2*np.pi/(N*dx)
     k = range(N)*dk
     
-    for n in tqdm(range(6)):
+    for n in tqdm(range(6)): # we repeat here the same code as in ex1_3
         
         vm = np.mean(data[str(n)])
         u = data[str(n)] - vm
@@ -357,8 +372,12 @@ def ex1_5(data):
     plt.legend()
     plt.xlabel("k (1/s)")
     plt.ylabel("Energy Spectrum ($m^2/s^2$)")
+    # despite some noise, the line is parallel to the energy spectrum for large scales
     
-    # POINT 7
+    
+    
+    # POINT 7 (to confirm same d0 also for relations with L0 and Re)
+    
     # Relation (10) with L0
     L0 = [2.51327, 5.23599, 6.28319, 6.98132, 7.85398, 8.37758] # from ex1_3, point 4
     y = L0
@@ -418,8 +437,8 @@ def ex1_5(data):
     plt.xlabel('Distance d (m)')
     plt.ylabel('Reynolds number (adim.)')
     
-    # the two d0 are clearly different from the result in point 2, so d0 is in general different
-    # however, the two d0 are here exactly the same because Re depends on L0
+    # d0 are clearly different but could be for some inaccuracies, in the end they are in the same interval [0,1]
+    
 
 
 
@@ -449,7 +468,6 @@ def ex1_6(data):
     dist = np.logspace(-3,1,10)
     flatnesses = []
     for i,l in enumerate(dist):
-        N = data[str(0)].shape[0]
         vm = np.mean(data[str(0)])
         dt = int(l*f/vm)
         y = np.array(data[str(0)][dt:]) - np.array(data[str(0)][:-dt])
@@ -468,7 +486,7 @@ def ex1_6(data):
 def ex1_7(data):
     # POINT 1, 2, 3
     n_ref = 40
-    dist = np.logspace(-3,0,n_ref) #for the four-fifth law, we need small l
+    dist = np.logspace(-3,0,n_ref) 
     N = data[str(0)].shape[0]
     vm = np.mean(data[str(0)])
     
@@ -503,7 +521,6 @@ def ex1_7(data):
     
     # POINT 4
     l = 0.07 # I take a value in the middle of the above ranges
-    N = data[str(0)].shape[0]
     vm = np.mean(data[str(0)])
 
     dt = int(l*f/vm)
@@ -527,7 +544,7 @@ def main():
     data = get_data()
     #ex1_1(data)
     #ex1_2(data)
-    ex1_3(data)
+    #ex1_3(data)
     #ex1_4(data)
     #ex1_5(data)
     #ex1_6(data)

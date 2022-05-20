@@ -9,8 +9,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+"""
+*********    READ ME   *********
 
-def map_step(x,y,alpha1,alpha2,beta):
+Except for the first two functions (that are general functions), all the following functions
+are each one related to one section of the instructions paper sheet.
+Inside each function/section, every point from the bullet list is specified with "POINT N".
+"""   
+
+
+
+
+def map_step(x,y,alpha1,alpha2,beta): # to generate one step of the map
     if (y<beta):
         x = alpha1*x
         y = y/beta
@@ -20,7 +30,7 @@ def map_step(x,y,alpha1,alpha2,beta):
     return [x,y]
 
 
-def generate_map(x0,y0,n_iter,alpha1,alpha2,beta):
+def generate_map(x0,y0,n_iter,alpha1,alpha2,beta): # to generate the whole trajectory of the map
     x=[]
     y=[]
     x.append(x0)
@@ -65,6 +75,9 @@ def ex3_1():
     
     
     # POINT 2
+    # I generate here different bands for timestep = 0,1,2,3
+    
+    
     alpha1 = 0.4
     alpha2 = 0.3 # alpha1+alpha2<=1
     beta = 0.4 # != 0.5 in the general case
@@ -156,11 +169,10 @@ def ex3_1():
     
     
     
-    
-    
-    
-    
     # POINT 3
+    
+    # plot of two trajectories with initial close positions
+    
     alpha1 = 0.3
     alpha2 = 0.4 # alpha1+alpha2<=1
     beta = 0.3 # != 0.5 in the general case
@@ -186,6 +198,8 @@ def ex3_1():
     
     
 
+    # plot of displacement versus time
+    
     n_iter = 90
     plt.figure()
     
@@ -222,13 +236,16 @@ def ex3_1():
     
 def ex3_2():
     
-    alpha_nom = 1
-    alpha_den = 5
-    alpha = alpha_nom/alpha_den
+    # POINT 1
+    
+    alpha_nom = 1 # = a, if alpha=a/b, change it to get different values of D0
+    alpha_den = 5 # = b, if alpha=a/b, change it to get different values of D0
     beta = 0.6 # != 0.5 in the general case
     
+    
+    alpha = alpha_nom/alpha_den
     n_iter = 5
-    n_realisations = 5000000
+    n_realisations = 5000000 # sufficiently large number 
     
     x = []
     y = []
@@ -253,30 +270,29 @@ def ex3_2():
     D0 = np.log(1/np.count_nonzero(count_matrix))/np.log(r)
     print ("D0 = ", D0)
     
+    # POINT 2
+    # if alpha_nom=1, alpha_dem=2, we get D0=2 as expected
+    
+
+
 
 def ex3_3():
-    alpha = 0.4
+
+    # POINT 1
+    # we compute numerically the lyapunov exponents
+
+    n_iter = 50 # big number of matrix product iteration
+    
+    h = [0.1,0.05] # to be changed to see lambda with different initial displacements
+    alpha = 0.2 # to be changed to see lambda with different alpha
+    
+    
     J = np.array([[alpha, 0],[0, 2]])
-    n_iter = 50
-    
-    h = [0.5,0]
-    
     h = h/np.linalg.norm(h)
     for i in range(n_iter):
         h = J @ h
     lambda_ = np.log(np.linalg.norm(h))/n_iter
-    print ("Expected Lambda 1 = ", np.log(alpha), "Numerical Lambda 1 = ", lambda_)
-    
-    h = [0.1,0.05] # this vector can be defined in any way except parallel to [1,0]. Indeed, it will anyway converge to the maximal eigenvalue
-    
-    h = h/np.linalg.norm(h)
-    for i in range(n_iter):
-        h = J @ h
-    lambda_ = np.log(np.linalg.norm(h))/n_iter
-    print ("Expected Lambda 2 = ", np.log(2), "Numerical Lambda 2 = ", lambda_)
-    
-    
-    
+    print ("Expected Lambda 1 = ", np.log(alpha), "Expected Lambda 2 = ", np.log(2), "Numerical Lambda = ", lambda_)
     
     
     n_iter = 80
@@ -285,14 +301,14 @@ def ex3_3():
     l1 = np.log(alpha)
     l2 = np.log(2)
     
-    
+    # EXTRA 
+    # we plot the displacements in the case beta=0.5
     plt.figure()
     x0 = 0.8
     y0 = 0.8
     x1 = 0.7999
     y1 = 0.7999
     [x,y] = generate_map(x0,y0,n_iter,alpha,alpha,0.5)
-    print (x)
     T1 = np.array([x,y])
     [x,y] = generate_map(x1,y1,n_iter,alpha,alpha,0.5)
     T2 = np.array([x,y])

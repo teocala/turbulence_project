@@ -140,9 +140,9 @@ In Table \ref{table1} we instead show the results of mean velocities and turbule
         \hline
         $d$ & $m$ & 1.0 & 2.0 & 3.0 & 4.0 & 5.0 & 6.0 \\
         \hline
-        $U$ & $m/s$&10.52223399 &10.52201583&10.52117473 &10.52232686& 10.52234804& 10.52185721 \\
+        $U$ & $m/s$& 10.522 &10.522& 10.521 &10.522&  10.522&  10.522 \\
         \hline
-        $I$ & adim.& 0.12180673& 0.05480351& 0.03954964 &0.0320026  &0.02713776& 0.02407247 \\
+        $I$ & adim.& 0.1218&  0.0548&  0.0395&0.0320 & 0.0271& 0.0241 \\
         \hline
     \end{tabular}
 \end{table}
@@ -166,9 +166,9 @@ In Fig. \ref{fig2}, we instead graphically show the trend of the correlation len
     \hline
     Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
     \hline
-    $L_C$ & m & 0.36669985& 0.63447755& 0.77330634& 0.90386788 &1.00909318 &1.08532957 \\
+    $L_C$ & m & 0.3667& 0.6345& 0.7733& 0.9039 & 1.0091 &1.0853 \\
     \hline
-    $L_\mathrm{int}$ &m & 0.35895344& 0.62704922& 0.76843644& 0.88769361 &1.00077964 &1.07598959 \\
+    $L_\mathrm{int}$ &m &  0.3590& 0.6270& 0.7684& 0.8877 &1.001 & 1.0760\\
     \hline
     \end{tabular}
 \end{table}
@@ -220,9 +220,9 @@ From the energy spectrum, we can detect the starting and ending points of the in
     \hline
     Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
     \hline
-    $L_{\mathrm{int},E}$ & m &2.51327412 &5.23598776& 6.28318531& 6.98131701& 7.85398163 &8.37758041 \\
+    $L_{\mathrm{int},E}$ & m & 2.5133 &5.2360& 6.2832& 6.9813& 7.8540 &8.3776\\
     \hline
-    $\eta_E$ & m& 0.02513274 &0.03695991 &0.0418879&  0.0448799&  0.04833219& 0.05235988  \\
+    $\eta_E$ & m& 0.0251 &0.0370&0.0419&0.0449& 0.0483& 0.0524 \\
     \hline
     \end{tabular}
 \end{table}
@@ -254,13 +254,13 @@ In table \ref{tab4} we report these quantities that have been computed starting 
         \hline
         Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
         \hline
-        $\epsilon$ & $m^2/s^3$&2.87076074& 0.15110392& 0.04658421& 0.02112303& 0.01153716 &0.00748596  \\
+        $\epsilon$ & $m^2/s^3$&2.8708& 0.1511& 0.0466& 0.0211& 0.0116 &0.0075  \\
         \hline
-        $Re_\lambda$ & Adim. & 969.527172 & 855.4148643& 802.221265 & 780.2180855& 759.1436670&
+        $Re_\lambda$ & Adim. & 969.5 & 855.4& 802.2 & 780.2& 759.1&
         741.4848821 \\
         \hline
-        $Re$& Adim. &310190.581 & 290554.460& 253269.393 &227787.447&
-        217626.8078 &204905.321 \\
+        $Re$& Adim. &$3.10 \cdot 10^5$ & $ 2.91 \cdot 10^5$& $ 2.53 \cdot 10^5$ &$2.28\cdot 10^5$&$ 
+        2.18 \cdot 10^5$&$ 2.05\cdot 10^5$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -280,7 +280,7 @@ Where the last equality comes from the isotropic assumption. Indeed, what we mea
         \hline
         Param. & Dim. & $A_1$ & $A_2$ & $A_3$ & $A_4$ & $A_5$ & $A_6$ \\
         \hline
-        $\mathcal{E}$&$m^2/s^2$ &2.46405129& 0.49877643& 0.25971965& 0.1700926 & 0.12231075 &0.09623149  \\
+        $\mathcal{E}$&$m^2/s^2$ &2.4641& 0.4988& 0.2597& 0.1701 & 0.1223 &0.096  \\
         \hline
     \end{tabular}
 \end{table}
@@ -645,26 +645,30 @@ To detect the two exponents, we choose the displacements as parallel to the eige
 		\lambda_2 = \lim_{n\rightarrow \infty} \frac{1}{n} \log \abs{\begin{bmatrix} \alpha^n & 0 \\ 0 & 2^n\end{bmatrix} \begin{bmatrix} 0 \\ 1\end{bmatrix} } =& \lim_{n\rightarrow \infty} \frac{1}{n} \log (2^n) = \log(2) \approx 0.693 \\
 	\end{aligned}
 \end{equation*}
-As confirmed by the theory, the Lyapunov exponents are represented by the logarithm of the eigenvalues. These values have also been computed numerically for $n=50$ with different choices for the initial displacement $\epsilon_0$ and $\alpha=0.4$. Results are shown in table \ref{tab8}. \\
+As confirmed by the theory, the Lyapunov exponents are represented by the logarithm of the eigenvalues. These values have also been computed numerically for $n=50$ with different choices for the initial displacement $\epsilon_0$ and $\alpha$. Results are shown in table \ref{tab8}. \\
 
 \begin{table}[h]
 	\centering
-	\caption{Analytical and numerical Lyapunov exponents for different initial displacements} \label{tab8}
-	\begin{tabular}{ | c | c | c |}
+	\caption{Analytical and numerical Lyapunov exponents for different initial displacements and $\alpha$} \label{tab8}
+	\begin{tabular}{ | c |c | c | c |}
 		\hline
-		$\epsilon_0$ & Theoretical value & Numerical value \\
+		$\epsilon_0$ & $\alpha$ & Theoretical $\lambda$ & Numerical value \\
 		\hline
-		$[0.1,0]$ & $\approx -0.916$& -0.916\\
+		$[0.1,0]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916\\
 		\hline
-		$[0,0.1]$ & $\approx  0.693$& 0.693\\
+		$[0.1,0]$ & 0.2 & $\approx \{ -1.609, 0.693\}$& -1.609\\
 		\hline
-		$[0.5,0]$ & $\approx -0.916$& -0.916\\
+		$[0,0.1]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693\\
 		\hline
-		$[0,0.5]$ & $\approx  0.693$& 0.693\\
+		$[0,0.1]$ & 0.2& $\approx \{ -1.609, 0.693\}$& 0.693\\
 		\hline
-		$[0.2,0.5]$ & $\approx  0.693$& 0.692\\
+		$[0.5,0]$& 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916\\
 		\hline
-		$[0.1,0.05]$ & $\approx  0.693$& 0.677\\
+		$[0,0.5]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693\\
+		\hline
+		$[0.1,0.05]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& 0.677\\
+		\hline
+		$[0.1,0.05]$& 0.2 & $\approx \{ -1.609, 0.693\}$& 0.677\\
 		\hline
 	\end{tabular}
 \end{table}
