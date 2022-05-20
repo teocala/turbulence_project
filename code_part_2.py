@@ -279,7 +279,7 @@ def ex3_3():
     
     
     
-    n_iter = 100
+    n_iter = 80
     alpha = 0.4
     
     l1 = np.log(alpha)
@@ -298,7 +298,7 @@ def ex3_3():
     T2 = np.array([x,y])
     plt.semilogy(np.linalg.norm(T1-T2,axis=0), label=r"$\epsilon(n)$")
     plt.semilogy(range(13), 2e-4*np.exp(l2*range(13)), label=r"$e^{λ_2 n}$")
-    plt.semilogy(range(52,100), 1e20*np.exp(l1*range(52,100)), label=r"$e^{λ_1 n}$")
+    plt.semilogy(range(52,80), 1e20*np.exp(l1*range(52,80)), label=r"$e^{λ_1 n}$")
     plt.xlabel("Timestep n")
     plt.ylabel(r"$\epsilon(n)$")
     plt.legend()
