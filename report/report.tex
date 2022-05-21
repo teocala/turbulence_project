@@ -342,8 +342,11 @@ Another confirmation comes from the scaling property:
 \begin{equation}\label{eq_E_L0}
 	\mathcal{E} \propto l_0^{2h}
 \end{equation}
-First of all, we inform that we can replace $l_0$ with $L_C$ thanks to the reasons given at the end of section \ref{energy_spectrum}. Therefore, we aim now to study this relation and a comparison between the experimental values of $\mathcal{E}$ against $L_C$ is shown in Fig. \ref{fig7}. 
+First of all, we inform that we can replace $l_0$ with $L_C$ thanks to the reasons given at the end of section \ref{energy_spectrum}. Therefore, we aim now to study this relation and a comparison between the experimental values of $\mathcal{E}$ against $L_C$ is shown in Fig. \ref{fig7}. \\
+The power law of $\mathcal{E}$ is evident from the straightness of the line. Moreover, these measures coincide almost exactly with the ones from the \emph{Saffman's decay} under which $h=-3/2$. This is expected since we have already shown from the previous methods that $h$ is approximately $-1.5$. \\
+Seeing the excellent overlapping of the experimental values with the Saffman's decay predictions, it should not surprise that the fitting method applied  to equation \ref{eq_E_L0} with fixed $h=-1.5$ returns again a parameter $d_0$ that is approximately $0.65$. 
 
+\newpage
 	\begin{center} 
 	\begin{figure} [h!]
 		\centering
@@ -353,8 +356,6 @@ First of all, we inform that we can replace $l_0$ with $L_C$ thanks to the reaso
 	\end{figure}
 \end{center}
 
-The power law of $\mathcal{E}$ is evident from the straightness of the line. Moreover, these measures coincide almost exactly with the ones from the \emph{Saffman's decay} under which $h=-3/2$. This is expected since we have already shown from the previous methods that $h$ is approximately $-1.5$. \\
-Seeing the excellent overlapping of the experimental values with the Saffman's decay predictions, it should not surprise that the fitting method applied  to equation \ref{eq_E_L0} with fixed $h=-1.5$ returns again a parameter $d_0$ that is approximately $0.65$. 
 
 \paragraph{Comparison of the methods:}
 To conclude this part about the estimation of $d_0$ and $h$, we can observe that the three methods are indeed equivalent since they return the same values (except for approximations). Advantages and disadvantages of each one are listed below:
@@ -364,17 +365,18 @@ To conclude this part about the estimation of $d_0$ and $h$, we can observe that
 	\item The relation with $L_0$ is precise and has theoretical supports. However, it restricts to only 3 possible theories and it is computationally slow as the first method (since it still needs to iterate over $d_0$).
 \end{itemize}
 
+  	\begin{center} 
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_5_4.png}
+		\caption{PLOT F - Energy spectrum (already shown in Fig. \ref{fig3}) with the theoretical trend for the large scales. Despite some noise, the spectrum seems to scale as the predicted trend.}
+		\label{fig8}
+	\end{figure}
+\end{center}
+
 \paragraph{Turbulence decay and energy spectrum: } 
  In Fig. \ref{fig8} we show again the energy spectrum. This time we want to study it with respect to the prediction of its trend for large eddies. Despite some noise (we have already discussed the issue of a fitting/filtering method in a logarithmic scale, see section \ref{energy_spectrum}), the lines seem parallel to the predicted line. Therefore, our theoretical results and the choice of $h=-3/2$ seem to confirm again the experiments.
- 
- 	\begin{center} 
- 	\begin{figure} [h]
- 		\centering
- 		\includegraphics[width = 4in]{./figures/ex1_5_4.png}
- 		\caption{PLOT F - Energy spectrum (already shown in Fig. \ref{fig3}) with the theoretical trend for the large scales. Despite some noise, the spectrum seems to scale as the predicted trend.}
- 		\label{fig8}
- 	\end{figure}
- \end{center}
+
 
 \paragraph{Discussion about the virtual origin $d_0$:}
 The virtual origin $d_0$ is certainly not only a fitting parameter but represents, in a certain way, the starting position for the decaying turbulence predicted trends. In other words, the laws in equations \ref{l_0_decay}, \ref{u_0_decay}, \ref{Re_decay}, \ref{E_decay} do not have any validity for distances $d < d_0$, neither mathematically (exponentials of negative bases) nor physically. Until the distance $d_0$, the turbulence is expected not to freely decay but, instead, to be still forced. This is the reason why our $d_0$ value is between $0m$ and $1m$, i.e. in the inlet region where applied forces have still a dominant role and turbulence is not fully-developed. \\
@@ -385,9 +387,9 @@ We expect $d_0$ to be approximately the same for all the above relations (eq. \r
 \begin{center}
 	\begin{figure} [h]
 		\centering
-		\subfloat[Fitting for $l_0$ values]{\includegraphics[width = 2.7in]{./figures/ex1_5_5.png}} 
+		\subfloat[Fitting for $l_0$ values]{\includegraphics[width = 2.8in]{./figures/ex1_5_5.png}} 
 		\hspace{8mm}
-		\subfloat[Fitting for $Re$ values]{\includegraphics[width = 2.9in]{./figures/ex1_5_6.png}}
+		\subfloat[Fitting for $Re$ values]{\includegraphics[width = 3.0in]{./figures/ex1_5_6.png}}
 		\caption{EXTRA - Fitting method applied to equations \ref{l_0_decay} and \ref{Re_decay} fixing $h=-3/2$. We clearly see that this value for $h$ is well suitable also for these quantities.}
 		\label{fig9}
 	\end{figure}
@@ -395,6 +397,7 @@ We expect $d_0$ to be approximately the same for all the above relations (eq. \r
 
 \subsubsection{Velocity Increments} \label{velocity_increments}
 In Fig. \ref{fig10} we show the behaviour of the longitudinal velocity increment $\delta v_{||}(x,l):=u(x+l)-u(x)$ for the distances $l=\{1mm, 1cm, 10cm, 10m\}$. 
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -419,7 +422,7 @@ To further investigate the properties of $\delta u_{||}$ we might wonder whether
 	f(l) := \frac{\left<\delta u_{||}^4(x,l)\right>}{{\left<\delta u_{||}^2(x,l)\right>}^2}
 \end{equation*}
 For a centred normal distribution, the fourth moment is known to be equal to $3\sigma^4$ while the second moment is the variance. Therefore the flatness is $3\sigma^4/(\sigma^2)^2 = 3$. The flatness of $\delta u_{||}$ is instead shown in Fig. \ref{fig11}.
-
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -429,13 +432,23 @@ For a centred normal distribution, the fourth moment is known to be equal to $3\
 	\end{figure}
 \end{center}
 It is reasonable that the flatness tends to the one from the normal distribution because, as we stated above, big distances imply differences of independent measures and, hence, normally distributed. \\
-The reason why the flatness is higher for small distances must be associated to the not normality of $\delta u_{||}(x,l)$ for small $l$. In particular, higher flatnesses are characteristic of the so-called \emph{leptokurtic} distributions, i.e. distributions that are more squeezed at zero and with fatter tails. An equivalent interpretation is the presence of more \emph{outliers}. Therefore, we can reasonably think of $\delta u_{||}$ for small $l$ as more concentrated in zero (see indeed Fig. \ref{fig10}) where, however, there are many outliers due to noisy turbulent effects. Physically, the difference between two near measures is usually small because of the high correlation, however, some noisy sudden effects can sometimes cause completely different measures.
+The reason why the flatness is higher for small distances must be associated to the not normality of $\delta u_{||}(x,l)$ for small $l$. In particular, higher flatnesses are characteristic of the so-called \emph{leptokurtic} distributions, i.e. distributions that are more squeezed at zero and with fatter tails. An equivalent interpretation is the presence of more \emph{outliers}. Therefore, we can reasonably think of $\delta u_{||}$ for small $l$ as more concentrated in zero (see indeed Fig. \ref{fig10}) where, however, there are many outliers due to noisy turbulent effects. Physically, the difference between two near measures is usually small because of the high correlation, however, some noisy sudden effects can sometimes cause completely different measures.  \\
+To confirm these predictions, also histograms in figure \ref{fig_extra} show this shrink at zero and the presence of outliers for small $l$.
 
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex1_6_2.png}
+		\caption{EXTRA - Histograms of the longitudinal velocity displacements for different distances $l$. Histograms for small $l$ are more shrunk and show more outliers.}
+		\label{fig_extra}
+	\end{figure}
+\end{center}
 \subsubsection{Structure Functions and Energy Dissipation}\label{structure_functions}
 In Fig. \ref{fig12} and  \ref{fig13} we show the trend of $S_2(l)$ and $S_3(l)$ where these quantities are defined as:
 \begin{equation*}
 	S_n(l):= \left< \delta u_{||}^n(x,l) \right> \hspace{4mm} n \in \mathbb{N}
 \end{equation*}
+First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain range. We know from the K41 that the 5/3 law for the energy spectrum is related to the 2/3 law of $S_2$ (more precisely, from the latter we can obtain the former with the Wiener formula). We would like to investigate now whether the 2/3 law has the same range of validity of the 5/3 law in Fig. \ref{fig3}. Since these plots are referred to only the first anemometer, we already computed the Kolmogorov and integral length scale for the first anemometer as $\eta_E \approx 0.025m$ and $L_{int,E} \approx 2.51m$ (table \ref{tab3}). The clear $2/3$ slope is instead observed only in a smaller range: the lower bound is bigger than $0.01m$ and the upper bound is smaller than $1m$. On the other hand, even if this range is shorter, it is centred (not shifted) as the one from the energy spectrum and has more or less the same order of magnitude. 
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -444,7 +457,8 @@ In Fig. \ref{fig12} and  \ref{fig13} we show the trend of $S_2(l)$ and $S_3(l)$ 
 		\label{fig12}
 	\end{figure}
 \end{center}
-First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain range. We know from the K41 that the 5/3 law for the energy spectrum is related to the 2/3 law of $S_2$ (more precisely, from the latter we can obtain the former with the Wiener formula). We would like to investigate now whether the 2/3 law has the same range of validity of the 5/3 law in Fig. \ref{fig3}. Since these plots are referred to only the first anemometer, we already computed the Kolmogorov and integral length scale for the first anemometer as $\eta_E \approx 0.025m$ and $L_{int,E} \approx 2.51m$ (table \ref{tab3}). The clear $2/3$ slope is instead observed only in a smaller range: the lower bound is bigger than $0.01m$ and the upper bound is smaller than $1m$. On the other hand, even if this range is shorter, it is centred (not shifted) as the one from the energy spectrum and has more or less the same order of magnitude. \\
+The same could be noticed in Fig. \ref{fig13} for $S_3$ which respects the 4/5 law for a certain range that, also in this case, is similar but shorter than the one from the energy spectrum. To conclude, trends of $S_2$ and $S_3$ support the K41 except these intervals do not completely correspond to the one from $E(k)$. 
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -453,7 +467,7 @@ First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain
 		\label{fig13}
 	\end{figure}
 \end{center}
-The same could be noticed in Fig. \ref{fig13} for $S_3$ which respects the 4/5 law for a certain range that, also in this case, is similar but shorter than the one from the energy spectrum. To conclude, the trends of $S_2$ and $S_3$ support the K41 except these intervals do not completely correspond to the one from $E(k)$. \\
+
 A last notice is about the fact that from $S_2$ and $S_3$ we could potentially achieve a value for the energy dissipation rate $\epsilon$. Indeed the $2/3$ and $4/5$ laws state that:
 \begin{equation} \label{S2_epsilon}
 	S_2(l) = C_2 \epsilon^\frac{2}{3} l^\frac{2}{3} \hspace{4mm} \text{and} \hspace{4mm}S_3(l) = C_3 \epsilon l
@@ -476,7 +490,7 @@ where $C_3 = -4/5$ and $C_2$ can be assumed to be $2.2$. Taking a value for $l$ 
 	\end{tabular}
 \end{table}
 These satisfying results confirm again the validity of the theory in our experiment.
-
+\newpage
 
 \subsection{Discussion} % Remove limit text
 In this first part we have comprehensively analysed the dataset from the Warhaft Wind and Turbulence Tunnel to extract important information related to the turbulence behaviour and compared it with the classical K41 theory and the turbulence decay theory. \\
@@ -518,6 +532,7 @@ where the domain is $[0,1] \cross [0,1]$, $\alpha_1 + \alpha_2\le 1$ and $0<\bet
 \subsection{Analysis of the Dynamics}
 \subsubsection{Implementation of the Map and (Numerical) Observations} \label{implementation_of_the_map_and}
 We start by simulating the evolution of this system for some general parameters. A graphical representation is shown in Fig. \ref{fig15}. First of all, thanks to the colour distinction, we recognize soon the equivalence with the dynamics in Fig. \ref{fig14}. At every step, the map firstly separates two regions based on the vertical coordinate. Later, it horizontally shrinks the two regions based on, respectively, the $\alpha_1$ and $\alpha_2$ parameters. After that, it vertically stretches the two regions and, in the end, it places the two new regions at the horizontal borders of the square. Further, what we notice is the continuous addition of new bands that get shorter at every step. The two initial colours, in particular, are separated in all the following bands.
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -526,6 +541,7 @@ We start by simulating the evolution of this system for some general parameters.
 		\label{fig15}
 	\end{figure}
 \end{center}
+Quick calculations can show that the map has two fixed points in $[0,0]$ and $[1,1]$. As expected, these equilibrium points are not stable because they are hyperbolic (indeed, the eigenvalue associated to the $y$ coordinate is always greater that 1).\\
 Let us now focus on the shape of the attractors for different parameters. These are rectangles that have the full height but a horizontal length that depends on the parameters and the time step. Looking again at Fig. \ref{fig14} we can define explicitly these horizontal coordinates:
 \begin{itemize}
 	\item For $n=0$: one band from $0$ to $1$.
@@ -533,45 +549,48 @@ Let us now focus on the shape of the attractors for different parameters. These 
 	\item For $n\ge 2$: the same coordinates as in $n-1$ multiplied by $\alpha_1$ plus the same coordinates as in $n-1$ multiplied by $\alpha_2$ and shifted of $1-\alpha_2$.
 \end{itemize}
 As a confirmation, we have generated the map until step $3$ and drawn the expected bands in Fig. \ref{fig16}. Here, it is evident the above statements are true since all the samples stay inside these borders. \\
+Now that the general structure of the map has been described, we can analyse the chaotic nature of such system. As a first qualitative description, we take two points that are very close and look at the evolution of  the system for such initial points. Two trajectories of this kind are shown in Fig. \ref{fig17}. Here it is clear that, despite the initial points are very close, eventually the two trajectories split in two different paths. We decided to plot explicitly the Euclidean distance between the trajectories for different parameters. This plot is shown in Fig. \ref{fig18}.
 
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
-		\stackunder[5pt]{\includegraphics[width = 2.7in]{./figures/quad1.png}}{} 
+		\stackunder[5pt]{\includegraphics[width = 2.0in]{./figures/quad1.png}}{} 
 		\hspace{8mm}
-		\stackunder[5pt]{\includegraphics[width = 2.7in]{./figures/quad2.png}}{}
+		\stackunder[5pt]{\includegraphics[width = 2.0in]{./figures/quad2.png}}{}
 		\\
 		\centering
-		\stackunder[5pt]{\includegraphics[width = 2.7in]{./figures/quad3.png}}{}
+		\stackunder[5pt]{\includegraphics[width = 2.0in]{./figures/quad3.png}}{}
 		\hspace{8mm}
-		\stackunder[5pt]{\includegraphics[width = 2.7in]{./figures/quad4.png}}{}
+		\stackunder[5pt]{\includegraphics[width = 2.0in]{./figures/quad4.png}}{}
 		\caption{Simulated evolution of the generalized Baker's Map (for $\alpha_1=0.4, \alpha_2=0.3, \beta=0.4$, 1000 samples) with the predicted coordinates for the bands.}
 		\label{fig16}
 	\end{figure}
 \end{center}
 
-
-Now that the general structure of the map has been described, we can analyse the chaotic nature of such system. As a first qualitative description, we take two points that are very close and look at the evolution of  the system for such initial points. Two trajectories of this kind are shown in Fig. \ref{fig17}. Here it is clear that, despite the initial points are very close, eventually the two trajectories split in two different paths. We decided to plot explicitly the Euclidean distance between the trajectories for different parameters. This plot is shown in Fig. \ref{fig18}.
-
 \begin{center}
 	\begin{figure} [h]
 		\centering
-		\includegraphics[width = 4in]{./figures/ex3_1_2.png}
+		\includegraphics[width = 3.8in]{./figures/ex3_1_2.png}
 		\caption{Simulated evolutions taking two very close points, i.e. $[0.8,0.8]$ and $[0.7999, 0.7999]$ ($\alpha_1=0.3, \alpha_2=0.4, \beta=0.3$). The two points eventually take two independent paths.}
 		\label{fig17}
 	\end{figure}
 \end{center}
 
+To conclude, two near points tend to diverge for every choice of the parameters (except for the special case $\beta=0.5$ as we will see later). Moreover, every trajectory does not convergence and continues to move in different part of the square (as seen in Fig. \ref{fig17}). We can conclude from these qualitative results that the generalized Baker's Map is presumably chaotic. \\
+We remind that, in contrast with continuous systems, a 2-dimensional map can potentially be chaotic.
+
+\newpage
+
 \begin{center}
 	\begin{figure} [h]
 		\centering
 		\includegraphics[width = 4in]{./figures/ex3_1_3.png}
-		\caption{Euclidean distances between trajectories starting at $[0.8,0.8]$ and $[0.7999, 0.7999]$. Chaos emerges for every choice of parameters. A lower value for $\beta$ seems to reduce a bit the speed of divergence.}
+		\caption{Euclidean distances between trajectories starting at $[0.8,0.8]$ and $[0.7999, 0.7999]$. Chaos emerges for every choice of parameters. A lower value for $\beta$ seems to reduce a bit the speed of divergence (indeed, as shown later, the positive Lyapunov exponent depends on $\beta$).}
 		\label{fig18}
 	\end{figure}
 \end{center}
-To conclude, two near points tend to diverge for every choice of the parameters (except for the special case $\beta=0.5$ as we will see later). Moreover, every trajectory does not convergence and continues to move in different part of the square (as seen in Fig. \ref{fig17}). We can conclude from these qualitative results that the generalized Baker's Map seems to be chaotic. \\
-We remind that, in contrast with continuous systems, a 2-dimensional map can potentially be chaotic.
+
 
 
 \subsubsection{Strange Attractor and Fractal Dimensions}

@@ -481,6 +481,20 @@ def ex1_6(data):
     plt.ylabel('Flatness (adim.)')
     plt.legend()
     
+    # extra histogram plot
+    dist = [0.001, 0.01, 0.1, 10]
+    fig, axs = plt.subplots(2, 2)
+    for i,l in enumerate(dist):
+        vm = np.mean(data[str(0)])
+        max_distance = 4
+        max_index = int(max_distance*f/vm)
+        dt = int(l*f/vm)
+        y = np.array(data[str(0)][dt:dt+max_index]) - np.array(data[str(0)][:max_index])
+        axs[i//2,i%2].hist(y, bins=20)
+        axs[i//2,i%2].set_title('l = '+str(l) +'m')
+        axs[i//2,i%2].set_xlabel('$\delta_u$ (m/s)', fontsize=9)
+    fig.tight_layout(pad=1.5)
+    
     
 
 def ex1_7(data):
@@ -547,7 +561,7 @@ def main():
     #ex1_3(data)
     #ex1_4(data)
     #ex1_5(data)
-    #ex1_6(data)
+    ex1_6(data)
     #ex1_7(data)
     
     del data
