@@ -1,9 +1,18 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Penrose and Lebowitz(1974)]{penrose_1974}
+O.~Penrose and J.~L. Lebowitz.
+\newblock On the exponential decay of correlation functions.
+\newblock \emph{Communications in Mathematical Physics}, 39\penalty0
+  (3):\penalty0 165--184, September 1974.
+\newblock ISSN 1432-0916.
+\newblock \doi{10.1007/BF01614239}.
+\newblock URL \url{https://doi.org/10.1007/BF01614239}.
 
 \bibitem[{Savitzky} and {Golay}(1964)]{savgol}
 A.~{Savitzky} and M.~J.~E. {Golay}.

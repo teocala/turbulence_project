@@ -180,7 +180,7 @@ In Fig. \ref{fig2}, we instead graphically show the trend of the correlation len
 		\label{fig2}
 	\end{figure}
 \end{center}
-We notice that the two scale lengths are very similar which confirms the fact that the first theoretically approximates the second. Let us clarify this point. Giving a glance at the plots, we recognize soon an exponential decay of the correlation function. Since $C(0)=1$ always (by definition and also from the plots) we conclude that it is approximately in the form: $C(l) = e^{-al}$ for a certain steep coefficient a. It implies that:
+We notice that the two scale lengths are very similar which confirms the fact that the first theoretically approximates the second. Let us clarify this point. Giving a glance at the plots, we recognize soon an exponential decay of the correlation function. Not by chance, it is well known that in statistical mechanics the exponential function with negative exponent is the most general and simple choice for the trend of the correlation function (see for instance \cite{penrose_1974}). Since $C(0)=1$ always (by definition and also from the plots) we conclude that it is approximately in the form: $C(l) = e^{-al}$ for a certain steep coefficient a. It implies that:
 \begin{equation*}
 	L_{int} := \int_0^{\infty} C(l)\, dl \approx  \int_0^{\infty} e^{-al}\, dl = \frac{1}{a}
 \end{equation*}
@@ -284,7 +284,7 @@ Where the last equality comes from the isotropic assumption. Indeed, what we mea
         \hline
     \end{tabular}
 \end{table}
-
+\newpage
 We finally report the laws predicted from the theory of turbulence decay:
 \begin{equation} \label{l_0_decay}
 	l_0 \propto (d-d_0)^{1/(1-h)}
@@ -433,13 +433,13 @@ For a centred normal distribution, the fourth moment is known to be equal to $3\
 \end{center}
 It is reasonable that the flatness tends to the one from the normal distribution because, as we stated above, big distances imply differences of independent measures and, hence, normally distributed. \\
 The reason why the flatness is higher for small distances must be associated to the not normality of $\delta u_{||}(x,l)$ for small $l$. In particular, higher flatnesses are characteristic of the so-called \emph{leptokurtic} distributions, i.e. distributions that are more squeezed at zero and with fatter tails. An equivalent interpretation is the presence of more \emph{outliers}. Therefore, we can reasonably think of $\delta u_{||}$ for small $l$ as more concentrated in zero (see indeed Fig. \ref{fig10}) where, however, there are many outliers due to noisy turbulent effects. Physically, the difference between two near measures is usually small because of the high correlation, however, some noisy sudden effects can sometimes cause completely different measures.  \\
-To confirm these predictions, also histograms in figure \ref{fig_extra} show this shrink at zero and the presence of outliers for small $l$.
+To confirm these predictions, also histograms in figure \ref{fig_extra} show that distributions for smaller $l$ shrink more at zero and have more outliers.
 
 \begin{center}
 	\begin{figure} [h]
 		\centering
 		\includegraphics[width = 4in]{./figures/ex1_6_2.png}
-		\caption{EXTRA - Histograms of the longitudinal velocity displacements for different distances $l$. Histograms for small $l$ are more shrunk and show more outliers.}
+		\caption{EXTRA - Histograms of the longitudinal velocity displacements for different distances $l$. Histograms for small $l$ are more shrunk at zero and show more outliers.}
 		\label{fig_extra}
 	\end{figure}
 \end{center}
@@ -448,7 +448,7 @@ In Fig. \ref{fig12} and  \ref{fig13} we show the trend of $S_2(l)$ and $S_3(l)$ 
 \begin{equation*}
 	S_n(l):= \left< \delta u_{||}^n(x,l) \right> \hspace{4mm} n \in \mathbb{N}
 \end{equation*}
-First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain range. We know from the K41 that the 5/3 law for the energy spectrum is related to the 2/3 law of $S_2$ (more precisely, from the latter we can obtain the former with the Wiener formula). We would like to investigate now whether the 2/3 law has the same range of validity of the 5/3 law in Fig. \ref{fig3}. Since these plots are referred to only the first anemometer, we already computed the Kolmogorov and integral length scale for the first anemometer as $\eta_E \approx 0.025m$ and $L_{int,E} \approx 2.51m$ (table \ref{tab3}). The clear $2/3$ slope is instead observed only in a smaller range: the lower bound is bigger than $0.01m$ and the upper bound is smaller than $1m$. On the other hand, even if this range is shorter, it is centred (not shifted) as the one from the energy spectrum and has more or less the same order of magnitude. 
+First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain range. We know from the K41 that the 5/3 law for the energy spectrum is related to the 2/3 law of $S_2$ (more precisely, from the latter we can obtain the former with the Wiener formula). We would like to investigate now whether the 2/3 law has the same range of validity of the 5/3 law in Fig. \ref{fig3}. Since these plots are referred to only the first anemometer, we already computed the Kolmogorov and integral length scale for the first anemometer as $\eta_E \approx 0.025m$ and $L_{int,E} \approx 2.51m$ (table \ref{tab3}). The clear $2/3$ slope is instead observed in a bit different range: more or less between $0.01m$ and $1m$. On the other hand, even if it is a little shifted, the two intervals have the same order of magnitude (indeed they are the same except a coefficient $\approx 2.5$).
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -457,7 +457,7 @@ First of all, we note that $S_2$ successfully satisfies the 2/3 law in a certain
 		\label{fig12}
 	\end{figure}
 \end{center}
-The same could be noticed in Fig. \ref{fig13} for $S_3$ which respects the 4/5 law for a certain range that, also in this case, is similar but shorter than the one from the energy spectrum. To conclude, trends of $S_2$ and $S_3$ support the K41 except these intervals do not completely correspond to the one from $E(k)$. 
+The same could be noticed in Fig. \ref{fig13} for $S_3$ which respects the 4/5 law for a certain range (more or less $[0.07m, 0.7m]$) that does not exactly correspond to the one from the energy spectrum but has still the same order of magnitude. To conclude, trends of $S_2$ and $S_3$ support the K41 and, despite these intervals do not exactly correspond to the one from $E(k)$, they scale together with a coefficient $\approx 2.5/3$. 
 \newpage
 \begin{center}
 	\begin{figure} [h]
@@ -494,9 +494,9 @@ These satisfying results confirm again the validity of the theory in our experim
 
 \subsection{Discussion} % Remove limit text
 In this first part we have comprehensively analysed the dataset from the Warhaft Wind and Turbulence Tunnel to extract important information related to the turbulence behaviour and compared it with the classical K41 theory and the turbulence decay theory. \\
-We can conclude that the experiment setup considerably satisfies the assumptions of the theory and indeed all the cited laws have been successfully observed and confirmed by the results. However, the experiment does not lack of outcomes that do not completely fit the theory. Most of these are inevitably due to experimental inaccuracies. For example, one can just think of the detection of the Kolmogorov and integral length scales in section \ref{energy_spectrum}. A graphical method is certainly not precise and, in addition, a different smoothing filter would certainly change the values from the ones predicted here. Moreover, many obtained quantities derive from these length scales or other measurements that are source of error. It is then easy to conclude that experimental imprecisions are as usual omnipresent and inevitable. \\
-On the other hand, there are some mismatched results that are probably due to systematic errors. The most relevant example is the range of validity for the $S_2$ and $S_3$ laws in section \ref{structure_functions}. In this case, it would be very interesting to understand if this is due to a not perfect fulfilment of the theoretical assumptions or instead to theoretical laws that are only approximate (i.e. range of validities for the $4/5$ and the $5/3$ laws are known to scale with each other but it is not explicit to which extent and precision). Therefore, we invite further researches to move in this direction. \\
-In any case, our experiment successfully confirmed the main theoretical predictions, both in the case of K41 theory of forced turbulence and also for the theory of decaying turbulence. Moreover, all the results that were not directly justified by these theories have been successfully motivated with intuitive, physical and mathematical reasons. To conclude, this experiment fully supports the Saffman's predictions for the turbulence decay.
+We can conclude that the experiment setup considerably satisfies the assumptions of the theory and indeed all the cited laws have been successfully observed and confirmed by the results. However, the experiment does not lack of outcomes that do not completely fit the theory. Most of these are inevitably due to experimental inaccuracies. For example, one can just think about the detection of the Kolmogorov and integral length scales in section \ref{energy_spectrum}. A graphical method is certainly not precise and, in addition, a different smoothing filter would certainly change the values from the ones predicted here. Moreover, many obtained quantities derive from these length scales or other measurements that are source of error. It is then easy to conclude that experimental imprecisions are as usual omnipresent and inevitable. \\
+On the other hand, it would be very interesting to investigate whether some mismatched results are due to systematic errors and not simple experimental imprecisions. The two main examples that we report are the estimates of $d_0$ for the $l_0$ and $Re$ decay laws in section \ref{turbulence_decay} and the ranges of validity for the $S_2$ and $S_3$ laws in section \ref{structure_functions}.  For these results, it is not clear yet whether inaccuracies are due to a not perfect fulfilment of the theoretical conditions or, instead, to theoretical laws that are only approximate (e.g. range of validities for the $4/5$ and the $5/3$ laws are known to scale together but it is not explicit to which extent and precision). Hence, we invite further researches to move in this direction. \\
+In any case, our experiment successfully confirmed the main theoretical predictions, both in the case of K41 theory for forced turbulence and also for the theory of decaying turbulence. Moreover, all the results that were not directly justified by these theories have been successfully motivated with intuitive, physical and/or mathematical reasons. To conclude, this experiment fully supports the Saffman's predictions for the turbulence decay.
 
 %==================================================================================
 \newpage
@@ -664,38 +664,57 @@ To detect the two exponents, we choose the displacements as parallel to the eige
 		\lambda_2 = \lim_{n\rightarrow \infty} \frac{1}{n} \log \abs{\begin{bmatrix} \alpha^n & 0 \\ 0 & 2^n\end{bmatrix} \begin{bmatrix} 0 \\ 1\end{bmatrix} } =& \lim_{n\rightarrow \infty} \frac{1}{n} \log (2^n) = \log(2) \approx 0.693 \\
 	\end{aligned}
 \end{equation*}
-As confirmed by the theory, the Lyapunov exponents are represented by the logarithm of the eigenvalues. These values have also been computed numerically for $n=50$ with different choices for the initial displacement $\epsilon_0$ and $\alpha$. Results are shown in table \ref{tab8}. \\
+As confirmed by the theory, the Lyapunov exponents are represented by the logarithm of the eigenvalues. These values have also been computed numerically with different choices for the initial displacement $\epsilon_0$ and $\alpha$. Two numerical values are shown. The first one is strictly algebraic: we computed the exponents with the above definition for a sufficiently large number of matrix products ($n=50$) and providing the Jacobian matrix. The second result is based on the measurement of the displacement between two trajectories that should theoretically follow a $\epsilon(n) \approx e^{\lambda n}$ trend. Therefore, if we take only few initial steps, we could do linear regression on the logarithm of the displacement to get an estimate of $\lambda$.  \\
+Results are shown in table \ref{tab8}. \\
 
 \begin{table}[h]
 	\centering
-	\caption{Analytical and numerical Lyapunov exponents for different initial displacements and $\alpha$} \label{tab8}
-	\begin{tabular}{ | c |c | c | c |}
+	\caption{Analytical and numerical Lyapunov exponents for different initial displacements and $\alpha$ (9 time steps for the regression fit in the second numerical method)} \label{tab8}
+	\begin{tabular}{ | c |c | c | c |c |}
 		\hline
-		$\epsilon_0$ & $\alpha$ & Theoretical $\lambda$ & Numerical value \\
+		$\epsilon_0$ & $\alpha$ & Theoretical $\lambda$ & Algebraic numerical value & Simulation numerical value \\
 		\hline
-		$[0.1,0]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916\\
+		$[1\cdot 10^{-4},0]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916 & -0.916\\
 		\hline
-		$[0.1,0]$ & 0.2 & $\approx \{ -1.609, 0.693\}$& -1.609\\
+		$[1\cdot 10^{-4},0]$ & 0.2 & $\approx \{ -1.609, 0.693\}$& -1.609& -1.609\\
 		\hline
-		$[0,0.1]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693\\
+		$[0,1\cdot 10^{-4}]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693& 0.693\\
 		\hline
-		$[0,0.1]$ & 0.2& $\approx \{ -1.609, 0.693\}$& 0.693\\
+		$[0,1\cdot 10^{-4}]$ & 0.2& $\approx \{ -1.609, 0.693\}$& 0.693& 0.693\\
 		\hline
-		$[0.5,0]$& 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916\\
+		$[0.5 \cdot 10^{-4},0]$& 0.4 & $\approx \{ -0.916, 0.693\}$& -0.916& -0.916\\
+		\hline 
+		$[0,0.5 \cdot 10^{-4}]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693& 0.693\\
 		\hline
-		$[0,0.5]$ & 0.4& $\approx \{ -0.916, 0.693\}$& 0.693\\
+		$[1\cdot 10^{-4},5\cdot 10^{-4}]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& 0.693& 0.692\\
 		\hline
-		$[0.1,0.05]$ & 0.4 & $\approx \{ -0.916, 0.693\}$& 0.677\\
-		\hline
-		$[0.1,0.05]$& 0.2 & $\approx \{ -1.609, 0.693\}$& 0.677\\
+		$[1\cdot 10^{-4},5\cdot 10^{-4}]$& 0.2 & $\approx \{ -1.609, 0.693\}$& 0.693& 0.692\\
 		\hline
 	\end{tabular}
 \end{table}
-Results are expected from the theory. Indeed, every initial displacement that is not parallel to the first eigenvalue generates a limit that tends to be bigger eigenvalue and, hence, to the bigger Lyapunov exponent. In formulae, every $\vec{\epsilon_0}$ that is not proportional to $[1,0]$ returns the second Lyapunov exponent, otherwise the first. \\
+\newpage
+
+\begin{center}
+	\begin{figure} [h]
+		\centering
+		\includegraphics[width = 4in]{./figures/ex3_3_1.png}
+		\caption{Example of the accuracy for the second numerical method ($\epsilon_0 = [1\cdot 10^{-4},5\cdot 10^{-4}], \alpha = 0.2$). If two trajectories start from very close points and the displacement $\epsilon(n)$ is analysed only in the initial time steps (9 time steps in this case), the trend is approximately $e^{\lambda n}$ as shown by the straight line in the semi-log-y plot. Therefore, linear regression on the logarithm of $\epsilon$ can be performed to get an estimate of $\lambda$. The accuracy of the method is shown by the exact overlap of the trend and its regression line.}
+		\label{fig_extra_2}
+	\end{figure}
+\end{center}
+
+Results are obviously expected from the theory. Indeed, every initial displacement that is not parallel to the first eigenvalue generates a limit that tends to be bigger eigenvalue and, hence, to the bigger Lyapunov exponent. In formulae, every $\vec{\epsilon_0}$ that is not proportional to $[1,0]$ returns the second Lyapunov exponent, otherwise the first. Moreover, the high precision of the two numerical methods is noteworthy. \\
 Let us see now the relation between these values and the chaotic nature of the system. First of all, as expected, one exponent is positive. Indeed, chaos is generated only if at least one exponent is positive. Not by chance, the positive exponent is the one related to the $y$ direction. It is indeed in this direction that bands are stretched while they are shrunk along the $x$ direction. In addition, if we sum the exponents we get a negative value except for $\alpha=0.5$ that gives zero sum. This should not surprise since, as already seen in Fig. \ref{fig15} and \ref{fig16}, the total area tends to decrease and therefore the system is dissipative. On the contrary, the choice of $\alpha=0.5$ gives the full cover of the square (fractal dimension = 2 as seen before) and hence the area is constant and the system conservative. \\
-In the specific case of $\beta=0.5$, the system presents a very singular behaviour that can be well explained by the Lyapunov exponents. First of all, we show in Fig. \ref{fig19} the trend of the displacement in this scenario. \\
-
-
+However, in the specific case of $\beta=0.5$, the system presents a very singular behaviour that can be well explained by the Lyapunov exponents. First of all, we show in Fig. \ref{fig19} the trend of the displacement in this scenario. \\
+The fact that the distance initially increases with the same scale of $e^{\lambda_2 n}$  $(\lambda_2=\log(2))$ is clearly expected from the theory but what is not expected is the decrease in the second part. This is observed only in the case $\beta=0.5$ and therefore, it is necessary to look at the law of $y$ more in details. Equation \ref{eq_map} applied to this specific case and only for the $y$ component is the following:
+\begin{equation*}
+	y_{n+1} = 
+	\begin{cases}
+		2y_n & \text{if } y_n < 0.5 \\
+		2y_n -1 & \text{if } y_n \ge 0.5
+	\end{cases}
+\end{equation*}
+\newpage
 \begin{center}
 	\begin{figure} [h]
 		\centering
@@ -705,14 +724,6 @@ In the specific case of $\beta=0.5$, the system presents a very singular behavio
 	\end{figure}
 \end{center}
 
-The fact that the distance initially increases with the same scale of $e^{\lambda_2 n}$  $(\lambda_2=\log(2))$ is clearly expected from the theory but what is not expected is the decrease in the second part. This is observed only in the case $\beta=0.5$ and therefore, it is necessary to look at the law of $y$ more in details. Equation \ref{eq_map} applied to this specific case and only for the $y$ component is the following:
-\begin{equation*}
-	y_{n+1} = 
-	\begin{cases}
-		2y_n & \text{if } y_n < 0.5 \\
-		2y_n -1 & \text{if } y_n \ge 0.5
-	\end{cases}
-\end{equation*}
 What is observed from the simulations is that $y$ eventually gets the exact 0 value. This is clearly not possible from the theory because the point $(x,y) = [0,0]$ is not a stable equilibrium point. Therefore, this result should be motivated by computational reasons. We know that every number $y \in [0,1]$ is represented by an infinite series of digits $\{I_i\}_{i \in \mathbb{N}}$ such that $I_i \in \{0,1\}$ and:
 \begin{equation*}
 	y = \sum_{i=1}^\infty \frac{I_i}{2^i}
@@ -743,7 +754,7 @@ It is now easy to compute the dynamics of the system since we can only focus on 
 
 
 \subsection{Discussion} % Remove limit text
-In this study we have comprehensively analysed the generalized Baker's map achieving all the main properties. In particular, we have firstly described its geometry and topology for a general choice of parameters underlying the chaotic nature and the fractal structure of the limit attractive set. In the second part we have instead analysed more in details the chaotic behaviour through its Lyapunov exponents. Moreover, we have discussed and motivated the origin of an unexpected result in the specific case $\beta=0.5$ that is not predicted from the theory but originates instead from computational reasons. This last fact should emphasize how computational methods can sometimes be restrictive or even misleading in the study of a dynamical map. In particular, the correct simulation of a Baker's map with $\beta=0.5$ is not trivial. However, in all the other cases, computations have made possible to always achieve numerical confirmations of the theoretical results. Therefore, all the main properties of the map have been analysed and later confirmed.
+In this study we have comprehensively analysed the generalized Baker's map achieving all the main properties. We have firstly described its geometry and topology for a general choice of parameters underlying the chaotic nature and the fractal structure of the limit attractive set. In particular, we have provided the fractal dimension in the general case $\alpha=\alpha_1=\alpha_2$ is a rational number. The case of irrational $\alpha$ is not trivial and we motivate future researches to proceed in this direction. In the second part, we have instead analysed more in details the chaotic behaviour through its Lyapunov exponents. Moreover, we have discussed and motivated the origin of an unexpected result in the specific case $\beta=0.5$ that is not predicted from the theory but originates instead from computational reasons. This last fact should emphasize how computational methods can sometimes be restrictive or even misleading in the study of a dynamical map. In particular, the correct simulation of a Baker's map with $\beta=0.5$ is not trivial. However, in all the other cases, computations have made possible to always achieve numerical confirmations of the theoretical results. Therefore, all the main properties of the map have been successfully analysed and later confirmed.
 
 
 

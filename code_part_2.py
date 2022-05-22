@@ -7,6 +7,7 @@ Created on Sun May 15 10:26:47 2022
 
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 
 """
@@ -283,26 +284,50 @@ def ex3_3():
 
     n_iter = 50 # big number of matrix product iteration
     
-    h = [0.1,0.05] # to be changed to see lambda with different initial displacements
+    h = [0.0001,0.0005] # to be changed to see lambda with different initial displacements
     alpha = 0.2 # to be changed to see lambda with different alpha
     
     
     J = np.array([[alpha, 0],[0, 2]])
-    h = h/np.linalg.norm(h)
+    h_n = h/np.linalg.norm(h)
     for i in range(n_iter):
-        h = J @ h
-    lambda_ = np.log(np.linalg.norm(h))/n_iter
-    print ("Expected Lambda 1 = ", np.log(alpha), "Expected Lambda 2 = ", np.log(2), "Numerical Lambda = ", lambda_)
+        h_n = J @ h_n
+    lambda_ = np.log(np.linalg.norm(h_n))/n_iter
+    print ("Expected Lambda 1 = ", np.log(alpha), "Expected Lambda 2 = ", np.log(2), "Algebraic numerical Lambda = ", lambda_)
     
     
+    n_iter = 8 # it depends on the parameters, it needs to be changed in case. only in the first "n_iter" iterations the displacement follows the trend $e^lambda*t$ 
+    x0 = 0.7
+    y0 = 0.7
+    x1 = x0 + h[0]
+    y1 = y0 + h[1]
+
+    [x,y] = generate_map(x0,y0,n_iter,alpha,alpha,beta=0.5)
+    T1 = np.array([x,y])
+    [x,y] = generate_map(x1,y1,n_iter,alpha,alpha,beta=0.5)
+    T2 = np.array([x,y])
+    epsilon = np.linalg.norm(T1-T2,axis=0)
+    reg = LinearRegression(fit_intercept=True).fit(np.arange(n_iter+1).reshape(-1,1),np.log(epsilon).reshape(-1,1))
+    print("Simulation numerical Lambda: ", reg.coef_)
+    
+    plt.figure()
+    plt.semilogy(epsilon, 'k--', label=r"$\epsilon(n)$")
+    plt.semilogy(np.arange(n_iter+1).reshape(-1,1), np.exp(reg.predict(np.arange(n_iter+1).reshape(-1,1))), 'k-', linewidth=0.6, label=r"$e^{\lambda n}$")
+    plt.legend()
+    plt.xlabel("Time step n")
+    plt.ylabel("Displacement $\epsilon$")
+    
+    
+    
+    
+    
+    # EXTRA 
+    # we plot the displacements in the case beta=0.5
     n_iter = 80
     alpha = 0.4
     
     l1 = np.log(alpha)
     l2 = np.log(2)
-    
-    # EXTRA 
-    # we plot the displacements in the case beta=0.5
     plt.figure()
     x0 = 0.8
     y0 = 0.8
